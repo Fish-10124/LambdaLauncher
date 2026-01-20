@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UserControl x:Class="LambdaLauncher.UserControls.PageChanger"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converter="using:LambdaLauncher.Converter"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:numberformatting="using:Windows.Globalization.NumberFormatting"
+             xmlns:ui="using:CommunityToolkit.WinUI"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <numberformatting:DecimalFormatter x:Key="IntegerFormatter" FractionDigits="0" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Border Padding="10" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" Spacing="5">
+                <HyperlinkButton x:Name="FirstPageButton" Width="40" Height="40" Click="FirstPageButton_Click" Style="{ThemeResource DateTimePickerFlyoutButtonStyle}">
+                    <Grid>
+                        <FontIcon Margin="-7,0,0,0" FontSize="15" Foreground="{ThemeResource ButtonForegroundThemeBrush}" Glyph="&#xE76B;" />
+                        <FontIcon Margin="7,0,0,0" FontSize="15" Foreground="{ThemeResource ButtonForegroundThemeBrush}" Glyph="&#xE76B;" />
+                    </Grid>
+                </HyperlinkButton>
+                <HyperlinkButton x:Name="PreviousPageButton" Width="40" Height="40"
+                                 Click="PreviousPageButton_Click" Content="{ui:FontIcon FontSize=15, Glyph=&#xE76B;}"
+                                 Foreground="{ThemeResource ButtonForegroundThemeBrush}" Style="{ThemeResource DateTimePickerFlyoutButtonStyle}" />
+
+                <Button Width="50" Height="30" HorizontalAlignment="Center" Background="Transparent" Content="{x:Bind ViewModel.CurrentPageDisplay, Mode=OneWay}">
+                    <Button.Flyout>
+                        <Flyout x:Name="pageInputFlyout">
+                            <StackPanel Orientation="Horizontal">
+                                <NumberBox x:Name="pageInputBox" NumberFormatter="{StaticResource IntegerFormatter}" SpinButtonPlacementMode="Inline" ValueChanged="pageInputBox_ValueChanged" Value="{x:Bind ViewModel.CurrentPageDisplay, Mode=OneWay}" />
+                                <TextBlock VerticalAlignment="Center" Style="{ThemeResource BodyTextBlockStyle}">
+                                    <Run Text=" / " />
+                                    <Run Text="{x:Bind TotalPage, Mode=OneWay}" />
+                                </TextBlock>
+                            </StackPanel>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+
+                <HyperlinkButton x:Name="NextPageButton" Width="40" Height="40"
+                                 Click="NextPageButton_Click" Content="{ui:FontIcon FontSize=15, Glyph=&#xE76C;}" Foreground="{ThemeResource ButtonForegroundThemeBrush}"
+                                 Style="{ThemeResource DateTimePickerFlyoutButtonStyle}" />
+                <HyperlinkButton x:Name="LastPageButton" Width="40" Height="40" Click="LastPageButton_Click" Style="{ThemeResource DateTimePickerFlyoutButtonStyle}">
+                    <Grid>
+                        <FontIcon Margin="-7,0,0,0" FontSize="15" Foreground="{ThemeResource ButtonForegroundThemeBrush}" Glyph="&#xE76C;" />
+                        <FontIcon Margin="7,0,0,0" FontSize="15" Foreground="{ThemeResource ButtonForegroundThemeBrush}" Glyph="&#xE76C;" />
+                    </Grid>
+                </HyperlinkButton>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

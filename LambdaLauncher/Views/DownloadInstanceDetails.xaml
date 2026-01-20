@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="LambdaLauncher.Views.DownloadInstanceDetails"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+      xmlns:converter="using:LambdaLauncher.Converter"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:display="using:LambdaLauncher.Models.Displays"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="using:CommunityToolkit.WinUI"
+      xmlns:usercontrol="using:LambdaLauncher.UserControls"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+
+        <converter:ModLoaderStateConverter x:Key="ItemsContainerEnableConverter" CompareMode="Available" ConvertToVisibility="False" Invert="False" />
+        <converter:ModLoaderStateConverter x:Key="ProgressRingVisibilityConverter" CompareMode="Loading" ConvertToVisibility="True" Invert="True" />
+        <converter:ModLoaderStateConverter x:Key="HintTextVisibilityConverter" CompareMode="Available" ConvertToVisibility="True" Invert="False" />
+        <converter:ModLoaderHintTextConverter x:Key="ModLoaderHintTextConverter" />
+
+        <DataTemplate x:Key="LoaderVersionsView">
+            <TextBlock Text="{Binding DisplayVersion, Mode=OneWay}" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="ModLoadersView" x:DataType="display:ModLoaderInstallDisplay">
+            <ItemContainer IsEnabled="{x:Bind State, Mode=OneWay, Converter={StaticResource ItemsContainerEnableConverter}}">
+                <Border Padding="15,15,25,15" Style="{StaticResource ContainerBorderStyle}">
+                    <Grid RowSpacing="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="5">
+                            <Border Grid.Column="0" Width="25" Height="25" Style="{StaticResource BorderIconStyle}">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{x:Bind Icon}" />
+                                </Border.Background>
+                            </Border>
+                            <TextBlock Grid.Column="1" VerticalAlignment="Center" Style="{ThemeResource BodyStrongTextBlockStyle}" Text="{x:Bind TypeDisplay}" />
+                            <ProgressRing Width="15" Height="15" Visibility="{x:Bind State, Mode=OneWay, Converter={StaticResource ProgressRingVisibilityConverter}}" />
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="1" Foreground="{StaticResource ErrorTextForegroundBrush}" Style="{ThemeResource CaptionTextBlockStyle}" Text="{x:Bind StateHintText, Mode=OneWay}" Visibility="{x:Bind State, Mode=OneWay, Converter={StaticResource HintTextVisibilityConverter}}" />
+
+                        <TextBlock Grid.Row="2" Foreground="{ThemeResource DescriptionTextForegroundBrush}" Style="{ThemeResource CaptionTextBlockStyle}"
+                                   Text="{x:Bind Description}" TextTrimming="CharacterEllipsis" TextWrapping="Wrap"
+                                   Visibility="{x:Bind IsSelected, Mode=OneWay, Converter={StaticResource BoolToVisibilityInvertConverter}}" />
+
+                        <ComboBox Grid.Row="1" ItemTemplate="{StaticResource LoaderVersionsView}" ItemsSource="{x:Bind Versions, Mode=OneWay}" SelectedIndex="0" Visibility="{x:Bind IsSelected, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    </Grid>
+                </Border>
+            </ItemContainer>
+        </DataTemplate>
+
+        <UniformGridLayout x:Key="ModLoadersViewLayout" ItemsStretch="Fill" MinColumnSpacing="4"
+                           MinItemHeight="110" MinItemWidth="200" MinRowSpacing="4" />
+    </Page.Resources>
+
+    <Grid>
+        <ScrollViewer Padding="{StaticResource ScrollAreaPadding}">
+            <Grid Margin="{StaticResource PageMargin}">
+                <Grid RowSpacing="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <usercontrol:MySettingsExpander x:Name="instanceDetails" Grid.Row="0" Description="{x:Bind ViewModel.InstanceDisplay.Description}"
+                                                    Header="{x:Bind ViewModel.InstanceDisplay.Header}" Icon="{x:Bind ViewModel.InstanceDisplay.Icon}" IsExpanded="True">
+
+                        <usercontrol:MySettingsExpander.Items>
+                            <controls:SettingsCard x:Uid="instanceIdCard" HeaderIcon="{ui:FontIcon Glyph=&#xE8AC;}">
+                                <TextBox Text="{x:Bind ViewModel.InstanceDisplay.Header}" />
+                            </controls:SettingsCard>
+
+                            <controls:SettingsCard x:Uid="instanceIndependenceCard" HeaderIcon="{ui:FontIcon Glyph=&#xED43;}">
+                                <ToggleSwitch x:Uid="instanceIndependenceSwitch" />
+                            </controls:SettingsCard>
+                        </usercontrol:MySettingsExpander.Items>
+
+                        <Button x:Uid="instanceInstallButton" Style="{StaticResource AccentButtonStyle}" />
+                    </usercontrol:MySettingsExpander>
+
+                    <TextBlock x:Uid="loadersHeader" Grid.Row="1" Padding="0,20,0,0" Style="{StaticResource BodyStrongTextBlockStyle}" />
+
+                    <ItemsView x:Name="modLoadersView" Grid.Row="2" ItemTemplate="{StaticResource ModLoadersView}"
+                               ItemsSource="{x:Bind ViewModel.ModLoaders.Values}" Layout="{StaticResource ModLoadersViewLayout}" SelectionChanged="modLoadersView_SelectionChanged"
+                               SelectionMode="Multiple" />
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+
+        <ProgressBar x:Name="progressBar" VerticalAlignment="Bottom" IsIndeterminate="True" Visibility="{x:Bind ViewModel.IsInitializing, Converter={StaticResource BoolToVisibilityConverter}}" />
+    </Grid>
+</Page>

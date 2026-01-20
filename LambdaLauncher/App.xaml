@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Application x:Class="LambdaLauncher.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converter="using:LambdaLauncher.Converter"
+             xmlns:local="using:LambdaLauncher">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <ResourceDictionary Source="ms-appx:///Assets/Icons/IconResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <Color x:Key="NormalTextForegroundColor">Black</Color>
+                    <Color x:Key="DescriptionTextForegroundColor">Gray</Color>
+                    <Color x:Key="TagContainerBackgroundColor">LightBlue</Color>
+                </ResourceDictionary>
+
+                <ResourceDictionary x:Key="Dark">
+                    <Color x:Key="NormalTextForegroundColor">White</Color>
+                    <Color x:Key="DescriptionTextForegroundColor">LightGray</Color>
+                    <Color x:Key="TagContainerBackgroundColor">SkyBlue</Color>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+
+            <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" Invert="False" />
+            <converter:BoolToVisibilityConverter x:Key="BoolToVisibilityInvertConverter" Invert="True" />
+
+            <SolidColorBrush x:Key="NormalTextForegroundBrush" Color="{ThemeResource NormalTextForegroundColor}" />
+            <SolidColorBrush x:Key="DescriptionTextForegroundBrush" Color="{ThemeResource DescriptionTextForegroundColor}" />
+            <SolidColorBrush x:Key="TagContainerBackgroundBrush" Color="{ThemeResource TagContainerBackgroundColor}" />
+            <SolidColorBrush x:Key="CategoryBorderBackgroundBrush" Opacity="0.25" Color="{ThemeResource SystemAccentColor}" />
+            <SolidColorBrush x:Key="ErrorTextForegroundBrush" Color="{ThemeResource SystemErrorTextColor}" />
+
+            <Thickness x:Key="PageMargin">50, 0, 0, 0</Thickness>
+            <Thickness x:Key="ScrollAreaPadding">0, 0, 20, 50</Thickness>
+
+            <TransitionCollection x:Key="EntranceFromUnderTransition">
+                <EntranceThemeTransition FromVerticalOffset="50" IsStaggeringEnabled="True" />
+            </TransitionCollection>
+
+            <Style x:Key="ListViewItemStyle" TargetType="ListViewItem">
+                <Setter Property="Margin" Value="0,2" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            </Style>
+
+            <Style x:Key="FontIconStyle" TargetType="FontIcon">
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="Foreground" Value="{ThemeResource DescriptionTextForegroundBrush}" />
+            </Style>
+
+            <Style x:Key="BorderIconStyle" TargetType="Border">
+                <Setter Property="Width" Value="34" />
+                <Setter Property="Height" Value="34" />
+                <Setter Property="BorderBrush" Value="Gray" />
+                <Setter Property="BorderThickness" Value="2" />
+                <Setter Property="CornerRadius" Value="2" />
+            </Style>
+
+            <Style x:Key="ContainerBorderStyle" TargetType="Border">
+                <Setter Property="Background" Value="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="BorderBrush" Value="{ThemeResource CardStrokeColorDefaultBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+            </Style>
+
+            <ItemsPanelTemplate x:Key="ItemsControlPanelTemplate">
+                <StackPanel Orientation="Horizontal" Spacing="4" />
+            </ItemsPanelTemplate>
+
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

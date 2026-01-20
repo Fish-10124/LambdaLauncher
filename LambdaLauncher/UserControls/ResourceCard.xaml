@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UserControl x:Class="LambdaLauncher.UserControls.ResourceCard"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             Loaded="UserControl_Loaded"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="CategoriesTemplate" x:DataType="x:String">
+            <Border Padding="5,0,5,2" Background="{StaticResource CategoryBorderBackgroundBrush}" CornerRadius="2">
+                <TextBlock Foreground="{ThemeResource DescriptionTextForegroundBrush}" Style="{ThemeResource CaptionTextBlockStyle}" Text="{x:Bind}" />
+            </Border>
+        </DataTemplate>
+
+        <x:Double x:Key="FontIconSize">12</x:Double>
+        <x:Double x:Key="IconBorderSize">50</x:Double>
+    </UserControl.Resources>
+
+    <Grid>
+        <controls:SettingsCard x:Name="rootCard" Padding="16,10" HorizontalAlignment="Stretch"
+                               VerticalAlignment="Stretch" Click="rootCard_Click" IsClickEnabled="True">
+            <controls:SettingsCard.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border x:Name="iconBorder" Grid.Column="0" Width="{StaticResource IconBorderSize}"
+                            Height="{StaticResource IconBorderSize}" BorderThickness="0" Style="{StaticResource BorderIconStyle}">
+                        <Border.Background>
+                            <ImageBrush ImageSource="{x:Bind ResourceModel.Icon, Mode=OneWay}" />
+                        </Border.Background>
+                    </Border>
+
+                    <Grid Grid.Column="1" Margin="10,0,0,0" RowSpacing="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Style="{ThemeResource BodyStrongTextBlockStyle}" Text="{x:Bind ResourceDisplay.Name, Mode=OneWay}" />
+
+                        <Grid Grid.Row="1" ColumnSpacing="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ItemsControl Grid.Column="0" ItemTemplate="{StaticResource CategoriesTemplate}" ItemsPanel="{StaticResource ItemsControlPanelTemplate}" ItemsSource="{x:Bind ResourceModel.CategoryDisplays, Mode=OneWay}" />
+
+                            <TextBlock Grid.Column="1" Foreground="{ThemeResource DescriptionTextForegroundBrush}" MaxLines="1"
+                                       Style="{ThemeResource CaptionTextBlockStyle}" Text="{x:Bind ResourceDisplay.Summary, Mode=OneWay}" TextTrimming="CharacterEllipsis"
+                                       TextWrapping="NoWrap" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind ResourceDisplay.Summary, Mode=OneWay}" />
+                        </Grid>
+
+                        <Grid Grid.Row="2" ColumnSpacing="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="300" />
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="5">
+                                <FontIcon FontSize="{StaticResource FontIconSize}" Glyph="&#xE739;" Style="{StaticResource FontIconStyle}" />
+                                <TextBlock Foreground="{ThemeResource DescriptionTextForegroundBrush}" Style="{ThemeResource CaptionTextBlockStyle}" Text="{x:Bind ResourceModel.Description, Mode=OneWay}" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="5">
+                                <FontIcon FontSize="{StaticResource FontIconSize}" Glyph="&#xE896;" Style="{StaticResource FontIconStyle}" />
+                                <TextBlock Foreground="{ThemeResource DescriptionTextForegroundBrush}" Style="{ThemeResource CaptionTextBlockStyle}" Text="{x:Bind ResourceDisplay.DownloadCount, Mode=OneWay}" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="5">
+                                <FontIcon FontSize="{StaticResource FontIconSize}" Glyph="&#xE898;" Style="{StaticResource FontIconStyle}" />
+                                <TextBlock Foreground="{ThemeResource DescriptionTextForegroundBrush}" Style="{ThemeResource CaptionTextBlockStyle}" Text="{x:Bind ResourceDisplay.DateModified.ToShortDateString(), Mode=OneWay}" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="5">
+                                <FontIcon FontSize="{StaticResource FontIconSize}" Glyph="&#xE774;" Style="{StaticResource FontIconStyle}" />
+                                <TextBlock Foreground="{ThemeResource DescriptionTextForegroundBrush}" Style="{ThemeResource CaptionTextBlockStyle}" Text="{x:Bind ResourceModel.WebSourceDisplay, Mode=OneWay}" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </controls:SettingsCard.Header>
+        </controls:SettingsCard>
+    </Grid>
+</UserControl>

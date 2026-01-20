@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="LambdaLauncher.Views.Settings"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="using:CommunityToolkit.WinUI"
+      xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+      mc:Ignorable="d">
+
+    <Grid>
+        <ScrollView Margin="{StaticResource PageMargin}">
+            <StackPanel Padding="{StaticResource ScrollAreaPadding}" Spacing="5">
+                <TextBlock Padding="0,16,0,8" Style="{ThemeResource BodyStrongTextBlockStyle}" Text="游戏" />
+                <controls:SettingsCard Description="版本隔离, 窗口标题, 大小, 进程优先级, 正版验证方式等" Header="启动选项"
+                                       HeaderIcon="{ui:FontIcon Glyph=&#xE7E8;}"
+                                       IsClickEnabled="True" />
+                <controls:SettingsCard Description="显示总运行内存, 游戏使用内存等" Header="游戏内存"
+                                       HeaderIcon="{ui:FontIcon Glyph=&#xE950;}"
+                                       IsClickEnabled="True" />
+                <controls:SettingsCard Description="渲染器, JVM 参数, 启动参数等" Header="高级启动选项" HeaderIcon="More"
+                                       IsClickEnabled="True" />
+
+                <TextBlock Padding="0,16,0,8" Style="{ThemeResource BodyStrongTextBlockStyle}" Text="启动器" />
+                <controls:SettingsCard Description="文件下载源, 版本列表源, 安装行为等" Header="下载" HeaderIcon="Download"
+                                       IsClickEnabled="True" />
+                <controls:SettingsCard Description="下载源, 文件名格式, 剪贴板链接识别等" Header="社区资源" HeaderIcon="Library"
+                                       IsClickEnabled="True" />
+                <controls:SettingsCard Description="更新提示, 游戏语言等" Header="辅助功能"
+                                       HeaderIcon="{ui:FontIcon Glyph=&#xE90F;}"
+                                       IsClickEnabled="True" />
+                <controls:SettingsCard Description="DoH 解析, HTTP 代理等" Header="网络"
+                                       HeaderIcon="{ui:FontIcon Glyph=&#xE701;}"
+                                       IsClickEnabled="True" />
+                <controls:SettingsCard Description="开发者专用" Header="调试信息"
+                                       HeaderIcon="{ui:FontIcon Glyph=&#xEC7A;}"
+                                       IsClickEnabled="True" />
+                <controls:SettingsExpander Header="LambdaLauncher">
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard />
+                        <controls:SettingsCard />
+                        <controls:SettingsCard />
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
+            </StackPanel>
+        </ScrollView>
+    </Grid>
+</Page>
