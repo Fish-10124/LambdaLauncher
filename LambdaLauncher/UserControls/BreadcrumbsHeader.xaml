@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<UserControl x:Class="LambdaLauncher.UserControls.BreadcrumbsHeader"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:struct="using:LambdaLauncher.Models.Record"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="breadcrumbBarTemplate" x:DataType="struct:PageHeader">
+            <TextBlock Padding="10,0,10,5" Style="{ThemeResource TitleTextBlockStyle}" Text="{Binding Text}" />
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid>
+        <BreadcrumbBar x:Name="baseBreadcrumbBar" ItemTemplate="{StaticResource breadcrumbBarTemplate}" ItemsSource="{x:Bind Header, Mode=OneWay}" />
+    </Grid>
+</UserControl>

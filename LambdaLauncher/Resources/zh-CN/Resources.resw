@@ -1,0 +1,837 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="navItemDownload.Content" xml:space="preserve">
+    <value>下载</value>
+  </data>
+  <data name="navItemHome.Content" xml:space="preserve">
+    <value>主页</value>
+  </data>
+  <data name="navItemInstances.Content" xml:space="preserve">
+    <value>实例</value>
+  </data>
+  <data name="navItemMore.Content" xml:space="preserve">
+    <value>更多</value>
+  </data>
+  <data name="navItemAccount.Content" xml:space="preserve">
+    <value>未登录</value>
+  </data>
+  <data name="launchButton.Text" xml:space="preserve">
+    <value>启动游戏</value>
+  </data>
+  <data name="launchButtonDetails.Text" xml:space="preserve">
+    <value>未选择版本</value>
+  </data>
+  <data name="navItemDownloadInstance.Content" xml:space="preserve">
+    <value>Minecraft 实例</value>
+  </data>
+  <data name="navItemDownloadMod.Content" xml:space="preserve">
+    <value>模组</value>
+  </data>
+  <data name="navItemDownloadModpack.Content" xml:space="preserve">
+    <value>整合包</value>
+  </data>
+  <data name="navItemDownloadResourcePack.Content" xml:space="preserve">
+    <value>材质包</value>
+  </data>
+  <data name="navItemDownloadShader.Content" xml:space="preserve">
+    <value>光影</value>
+  </data>
+  <data name="Header-Instance" xml:space="preserve">
+    <value>实例</value>
+  </data>
+  <data name="InstanceType-Snapshot" xml:space="preserve">
+    <value>快照版</value>
+  </data>
+  <data name="ResourceType-Release" xml:space="preserve">
+    <value>正式版</value>
+  </data>
+  <data name="InstanceType-Old_alpha" xml:space="preserve">
+    <value>远古 α 版</value>
+  </data>
+  <data name="InstanceType-Old_beta" xml:space="preserve">
+    <value>远古 β 版</value>
+  </data>
+  <data name="InstanceType-AprilFool" xml:space="preserve">
+    <value>愚人节版</value>
+  </data>
+  <data name="versionFilterAll.Content" xml:space="preserve">
+    <value>所有版本</value>
+  </data>
+  <data name="versionFilterRelease.Content" xml:space="preserve">
+    <value>正式版</value>
+  </data>
+  <data name="versionFilterSnapshot.Content" xml:space="preserve">
+    <value>快照版</value>
+  </data>
+  <data name="versionFilterOldAlpha.Content" xml:space="preserve">
+    <value>远古 α 版</value>
+  </data>
+  <data name="versionFilterOldBeta.Content" xml:space="preserve">
+    <value>远古 β 版</value>
+  </data>
+  <data name="versionFilterAprilFool.Content" xml:space="preserve">
+    <value>愚人节版</value>
+  </data>
+  <data name="versionFilter.Text" xml:space="preserve">
+    <value>发布类型</value>
+  </data>
+  <data name="latestVersion.Text" xml:space="preserve">
+    <value>最新版本</value>
+  </data>
+  <data name="allVersionHeader.Text" xml:space="preserve">
+    <value>所有版本</value>
+  </data>
+  <data name="instanceIdCard.Header" xml:space="preserve">
+    <value>实例 ID</value>
+  </data>
+  <data name="instanceIdCard.Description" xml:space="preserve">
+    <value>version 目录下的子文件夹名称，此 ID 不能重复</value>
+  </data>
+  <data name="instanceIndependenceCard.Header" xml:space="preserve">
+    <value>版本独立</value>
+  </data>
+  <data name="instanceIndependenceCard.Description" xml:space="preserve">
+    <value>开启后，游戏将在 version 目录下的独立文件夹内运行</value>
+  </data>
+  <data name="instanceIndependenceSwitch.OffContent" xml:space="preserve">
+    <value>禁用</value>
+  </data>
+  <data name="instanceIndependenceSwitch.OnContent" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="instanceInstallButton.Content" xml:space="preserve">
+    <value>立即安装</value>
+  </data>
+  <data name="LoaderDescription-NeoForge" xml:space="preserve">
+    <value>模组加载器，为 Forge 的分支加载器</value>
+  </data>
+  <data name="LoaderDescription-Optifine" xml:space="preserve">
+    <value>高清修复，与其它加载器一起安装时将以模组的形式安装</value>
+  </data>
+  <data name="LoaderDescription-Quilt" xml:space="preserve">
+    <value>模组加载器，为 Fabric 的分支加载器</value>
+  </data>
+  <data name="loadersHeader.Text" xml:space="preserve">
+    <value>加载器</value>
+  </data>
+  <data name="LoaderDescription-NotAvailable" xml:space="preserve">
+    <value>该版本不支持该加载器</value>
+  </data>
+  <data name="LoaderDescription-Loading" xml:space="preserve">
+    <value>加载中...</value>
+  </data>
+  <data name="LoaderDescription-Conflict" xml:space="preserve">
+    <value>存在冲突</value>
+  </data>
+  <data name="LoaderDescription-Error" xml:space="preserve">
+    <value>获取失败</value>
+  </data>
+  <data name="Header-Mod" xml:space="preserve">
+    <value>模组</value>
+  </data>
+  <data name="AllWebResourceSources" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="AnyModLoader" xml:space="preserve">
+    <value>任意模组加载器</value>
+  </data>
+  <data name="AllGameVersion" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="WebSource-CurseForge" xml:space="preserve">
+    <value>CurseForge</value>
+  </data>
+  <data name="WebSource-Modrinth" xml:space="preserve">
+    <value>Modrinth</value>
+  </data>
+  <data name="SortMethod-Relevance" xml:space="preserve">
+    <value>相关性</value>
+  </data>
+  <data name="SortMethod-Popularity" xml:space="preserve">
+    <value>流行度</value>
+  </data>
+  <data name="SortMethod-LatestUpdate" xml:space="preserve">
+    <value>最近更新</value>
+  </data>
+  <data name="SortMethod-ReleasedDate" xml:space="preserve">
+    <value>最新发布</value>
+  </data>
+  <data name="SortMethod-TotalDownloads" xml:space="preserve">
+    <value>下载量</value>
+  </data>
+  <data name="SortMethod-Featured" xml:space="preserve">
+    <value>精选</value>
+  </data>
+  <data name="SortMethod-Name" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="SortMethod-Author" xml:space="preserve">
+    <value>作者</value>
+  </data>
+  <data name="SortMethod-Category" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="SortMethod-GameVersion" xml:space="preserve">
+    <value>游戏版本</value>
+  </data>
+  <data name="SortMethod-EarlyAccess" xml:space="preserve">
+    <value>早期测试</value>
+  </data>
+  <data name="SortMethod-FeaturedReleased" xml:space="preserve">
+    <value>精选正式</value>
+  </data>
+  <data name="SortMethod-Rating" xml:space="preserve">
+    <value>评价</value>
+  </data>
+  <data name="SortMethod-Follows" xml:space="preserve">
+    <value>关注度</value>
+  </data>
+  <data name="webResourceSourceSelection.Text" xml:space="preserve">
+    <value>资源平台</value>
+  </data>
+  <data name="gameVersionSelection.Text" xml:space="preserve">
+    <value>游戏版本</value>
+  </data>
+  <data name="sortMethodSelection.Text" xml:space="preserve">
+    <value>排列方式</value>
+  </data>
+  <data name="resourceCategorySelection.Text" xml:space="preserve">
+    <value>资源类型</value>
+  </data>
+  <data name="Loader-Forge" xml:space="preserve">
+    <value>Forge</value>
+  </data>
+  <data name="Loader-NeoForge" xml:space="preserve">
+    <value>NeoForge</value>
+  </data>
+  <data name="Loader-Fabric" xml:space="preserve">
+    <value>Fabric</value>
+  </data>
+  <data name="Loader-Quilt" xml:space="preserve">
+    <value>Quilt</value>
+  </data>
+  <data name="Category-Addons" xml:space="preserve">
+    <value>模组附属</value>
+  </data>
+  <data name="Category-AdventureAndRPG" xml:space="preserve">
+    <value>冒险</value>
+  </data>
+  <data name="Category-All" xml:space="preserve">
+    <value>全部</value>
+  </data>
+  <data name="Category-APIAndLibrary" xml:space="preserve">
+    <value>支持库</value>
+  </data>
+  <data name="Category-AppliedEnergistics2" xml:space="preserve">
+    <value>应用能源 2 (Applied Energistics 2)</value>
+  </data>
+  <data name="Category-ArmorToolsAndWeapons" xml:space="preserve">
+    <value>装备与工具</value>
+  </data>
+  <data name="Category-Automation" xml:space="preserve">
+    <value>自动化</value>
+  </data>
+  <data name="Category-Biomes" xml:space="preserve">
+    <value>生物群系</value>
+  </data>
+  <data name="Category-Blood_Magic" xml:space="preserve">
+    <value>血魔法 (Blood Magic)</value>
+  </data>
+  <data name="Category-BugFixes" xml:space="preserve">
+    <value>漏洞修复</value>
+  </data>
+  <data name="Category-Buildcraft" xml:space="preserve">
+    <value>建筑 (Build Craft)</value>
+  </data>
+  <data name="Category-Cosmetic" xml:space="preserve">
+    <value>装饰</value>
+  </data>
+  <data name="Category-CraftTweaker" xml:space="preserve">
+    <value>CrT (Craft Tweaker)</value>
+  </data>
+  <data name="Category-Create" xml:space="preserve">
+    <value>机械动力 (Create)</value>
+  </data>
+  <data name="Category-CreativeMode" xml:space="preserve">
+    <value>创造模式</value>
+  </data>
+  <data name="Category-Dimensions" xml:space="preserve">
+    <value>维度</value>
+  </data>
+  <data name="Category-Education" xml:space="preserve">
+    <value>教育</value>
+  </data>
+  <data name="Category-Energy" xml:space="preserve">
+    <value>能源</value>
+  </data>
+  <data name="Category-EnergyFluidAndItemTransport" xml:space="preserve">
+    <value>管道与物流</value>
+  </data>
+  <data name="Category-Farming" xml:space="preserve">
+    <value>农业</value>
+  </data>
+  <data name="Category-Food" xml:space="preserve">
+    <value>食物</value>
+  </data>
+  <data name="Category-Forestry" xml:space="preserve">
+    <value>林业 (Forestry)</value>
+  </data>
+  <data name="Category-Galacticraft" xml:space="preserve">
+    <value>星系 (Galacti Craft)</value>
+  </data>
+  <data name="Category-Genetics" xml:space="preserve">
+    <value>游戏机制</value>
+  </data>
+  <data name="Category-IndustrialCraft" xml:space="preserve">
+    <value>工业时代 (Industrial Craft)</value>
+  </data>
+  <data name="Category-IntegratedDynamics" xml:space="preserve">
+    <value>集成动力 (Integrated Dynamics)</value>
+  </data>
+  <data name="Category-KubeJS" xml:space="preserve">
+    <value>KubeJS</value>
+  </data>
+  <data name="Category-Magic" xml:space="preserve">
+    <value>魔法</value>
+  </data>
+  <data name="Category-MapAndInformation" xml:space="preserve">
+    <value>信息显示</value>
+  </data>
+  <data name="Category-MCreator" xml:space="preserve">
+    <value>MCreator</value>
+  </data>
+  <data name="Category-Miscellaneous" xml:space="preserve">
+    <value>杂项</value>
+  </data>
+  <data name="Category-Mobs" xml:space="preserve">
+    <value>生物</value>
+  </data>
+  <data name="Category-ModJam2025" xml:space="preserve">
+    <value>ModJam 2025</value>
+  </data>
+  <data name="Category-OresAndResources" xml:space="preserve">
+    <value>矿物资源</value>
+  </data>
+  <data name="Category-Performance" xml:space="preserve">
+    <value>性能优化</value>
+  </data>
+  <data name="Category-PlayerTransport" xml:space="preserve">
+    <value>运输</value>
+  </data>
+  <data name="Category-Processing" xml:space="preserve">
+    <value>加工</value>
+  </data>
+  <data name="Category-Redstone" xml:space="preserve">
+    <value>红石</value>
+  </data>
+  <data name="Category-RefinedStorage" xml:space="preserve">
+    <value>精致存储 (Refined Storage)</value>
+  </data>
+  <data name="Category-ServerUtility" xml:space="preserve">
+    <value>服务器</value>
+  </data>
+  <data name="Category-Skyblock" xml:space="preserve">
+    <value>空岛 (Sky Block)</value>
+  </data>
+  <data name="Category-Storage" xml:space="preserve">
+    <value>存储</value>
+  </data>
+  <data name="Category-Structures" xml:space="preserve">
+    <value>天然结构</value>
+  </data>
+  <data name="Category-Technology" xml:space="preserve">
+    <value>科技</value>
+  </data>
+  <data name="Category-Thaumcraft" xml:space="preserve">
+    <value>神秘时代 (Thaum Craft)</value>
+  </data>
+  <data name="Category-ThermalExpansion" xml:space="preserve">
+    <value>热力膨胀 (Thermale Expansion)</value>
+  </data>
+  <data name="Category-Tinker'sConstruct" xml:space="preserve">
+    <value>匠魂 (Tinker's Construct)</value>
+  </data>
+  <data name="Category-TwilightForest" xml:space="preserve">
+    <value>暮色森林 (Twilight Forest)</value>
+  </data>
+  <data name="Category-TwitchIntegration" xml:space="preserve">
+    <value>社区发布</value>
+  </data>
+  <data name="Category-UtilityQoL" xml:space="preserve">
+    <value>工具</value>
+  </data>
+  <data name="Category-Economy" xml:space="preserve">
+    <value>经济</value>
+  </data>
+  <data name="Category-GameMechanics" xml:space="preserve">
+    <value>游戏机制</value>
+  </data>
+  <data name="Category-Management" xml:space="preserve">
+    <value>管理</value>
+  </data>
+  <data name="Category-Minigame" xml:space="preserve">
+    <value>小游戏</value>
+  </data>
+  <data name="Category-Social" xml:space="preserve">
+    <value>社交</value>
+  </data>
+  <data name="Category-Equipment" xml:space="preserve">
+    <value>含装备材质</value>
+  </data>
+  <data name="Category-Optimization" xml:space="preserve">
+    <value>优化</value>
+  </data>
+  <data name="Category-Worldgen" xml:space="preserve">
+    <value>世界元素</value>
+  </data>
+  <data name="resourceVersionFilter.Text" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="resourceCopyLinkButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>复制链接</value>
+  </data>
+  <data name="resourceGotoLinkButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>跳转至网站</value>
+  </data>
+  <data name="resourceGotoMcWikiButtonText.Text" xml:space="preserve">
+    <value>MC 百科</value>
+  </data>
+  <data name="resourceTranslateDescriptionButtonText.Text" xml:space="preserve">
+    <value>翻译简介</value>
+  </data>
+  <data name="ResourceType-Beta" xml:space="preserve">
+    <value>β 版</value>
+  </data>
+  <data name="ResourceType-Alpha" xml:space="preserve">
+    <value>α 版</value>
+  </data>
+  <data name="FileDetails-ReleaseDate" xml:space="preserve">
+    <value>发布于 {0} </value>
+  </data>
+  <data name="FileDetails-DownloadCount" xml:space="preserve">
+    <value>下载 {0} 次</value>
+  </data>
+  <data name="FileDetails-FileName" xml:space="preserve">
+    <value>文件名: {0}</value>
+  </data>
+  <data name="LoaderDescription-Fabric" xml:space="preserve">
+    <value>模组加载器，用于加载 Fabric 模组</value>
+  </data>
+  <data name="LoaderDescription-Forge" xml:space="preserve">
+    <value>模组加载器，用于加载 Forge 模组</value>
+  </data>
+  <data name="InstanceType-Release" xml:space="preserve">
+    <value>正式版</value>
+  </data>
+  <data name="AllModLoader" xml:space="preserve">
+    <value>所有模组加载器</value>
+  </data>
+  <data name="Header-Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Category-Challenging" xml:space="preserve">
+    <value>挑战</value>
+  </data>
+  <data name="Category-Combat" xml:space="preserve">
+    <value>PVP</value>
+  </data>
+  <data name="Category-KitchenSink" xml:space="preserve">
+    <value>多功能</value>
+  </data>
+  <data name="Category-Lightweight" xml:space="preserve">
+    <value>轻量</value>
+  </data>
+  <data name="Category-Multiplayer" xml:space="preserve">
+    <value>多人</value>
+  </data>
+  <data name="Category-Quests" xml:space="preserve">
+    <value>任务</value>
+  </data>
+  <data name="Category-ExtraLarge" xml:space="preserve">
+    <value>大型</value>
+  </data>
+  <data name="Category-SciFi" xml:space="preserve">
+    <value>科幻</value>
+  </data>
+  <data name="Category-FTBOfficialPack" xml:space="preserve">
+    <value>FTB官方发布</value>
+  </data>
+  <data name="Category-MapBased" xml:space="preserve">
+    <value>自带世界</value>
+  </data>
+  <data name="Category-Horror" xml:space="preserve">
+    <value>恐怖</value>
+  </data>
+  <data name="Category-VanillaPlus" xml:space="preserve">
+    <value>原版附加</value>
+  </data>
+  <data name="Category-Hardcore" xml:space="preserve">
+    <value>极限</value>
+  </data>
+  <data name="Category-Exploration" xml:space="preserve">
+    <value>探索</value>
+  </data>
+  <data name="Header-ModPack" xml:space="preserve">
+    <value>整合包</value>
+  </data>
+  <data name="Header-ResourcePack" xml:space="preserve">
+    <value>资源包</value>
+  </data>
+  <data name="Header-ShaderPack" xml:space="preserve">
+    <value>光影包</value>
+  </data>
+  <data name="Header-World" xml:space="preserve">
+    <value>世界</value>
+  </data>
+  <data name="Header-DataPack" xml:space="preserve">
+    <value>数据包</value>
+  </data>
+  <data name="Category-FontPacks" xml:space="preserve">
+    <value>含字体样式</value>
+  </data>
+  <data name="Category-DataPacks" xml:space="preserve">
+    <value>数据包</value>
+  </data>
+  <data name="Category-ModSupport" xml:space="preserve">
+    <value>支持模组</value>
+  </data>
+  <data name="Category-Animated" xml:space="preserve">
+    <value>动画包</value>
+  </data>
+  <data name="Category-PhotoRealistic" xml:space="preserve">
+    <value>低配真实</value>
+  </data>
+  <data name="Category-Steampunk" xml:space="preserve">
+    <value>蒸汽朋克</value>
+  </data>
+  <data name="Category-Modern" xml:space="preserve">
+    <value>现代</value>
+  </data>
+  <data name="Category-Medieval" xml:space="preserve">
+    <value>中世纪</value>
+  </data>
+  <data name="Category-Traditional" xml:space="preserve">
+    <value>传统</value>
+  </data>
+  <data name="Category-512xAndHigher" xml:space="preserve">
+    <value>512 分辨率或更高</value>
+  </data>
+  <data name="Category-256x" xml:space="preserve">
+    <value>256 分辨率</value>
+  </data>
+  <data name="Category-128x" xml:space="preserve">
+    <value>128 分辨率</value>
+  </data>
+  <data name="Category-64x" xml:space="preserve">
+    <value>64 分辨率</value>
+  </data>
+  <data name="Category-32x" xml:space="preserve">
+    <value>32 分辨率</value>
+  </data>
+  <data name="Category-16x" xml:space="preserve">
+    <value>16 分辨率</value>
+  </data>
+  <data name="Category-Blocks" xml:space="preserve">
+    <value>含方块材质</value>
+  </data>
+  <data name="Category-CoreShaders" xml:space="preserve">
+    <value>含着色器文件</value>
+  </data>
+  <data name="Category-Entities" xml:space="preserve">
+    <value>含实体材质</value>
+  </data>
+  <data name="Category-Environment" xml:space="preserve">
+    <value>含环境材质</value>
+  </data>
+  <data name="Category-GUI" xml:space="preserve">
+    <value>含界面样式</value>
+  </data>
+  <data name="Category-Items" xml:space="preserve">
+    <value>含物品材质</value>
+  </data>
+  <data name="Category-Locale" xml:space="preserve">
+    <value>含本地化文件</value>
+  </data>
+  <data name="Category-VanillaLike" xml:space="preserve">
+    <value>原版风</value>
+  </data>
+  <data name="Category-Fantasy" xml:space="preserve">
+    <value>梦幻</value>
+  </data>
+  <data name="Category-Realistic" xml:space="preserve">
+    <value>真实</value>
+  </data>
+  <data name="Category-Atmosphere" xml:space="preserve">
+    <value>大气</value>
+  </data>
+  <data name="Category-Bloom" xml:space="preserve">
+    <value>泛光</value>
+  </data>
+  <data name="Category-High" xml:space="preserve">
+    <value>高配</value>
+  </data>
+  <data name="Category-Medium" xml:space="preserve">
+    <value>中配</value>
+  </data>
+  <data name="Category-Low" xml:space="preserve">
+    <value>低配</value>
+  </data>
+  <data name="Category-Potato" xml:space="preserve">
+    <value>超低配</value>
+  </data>
+  <data name="Category-Screenshot" xml:space="preserve">
+    <value>卡成 PPT</value>
+  </data>
+  <data name="Category-SemiRealistic" xml:space="preserve">
+    <value>半真实</value>
+  </data>
+  <data name="Category-Cartoon" xml:space="preserve">
+    <value>卡通</value>
+  </data>
+  <data name="Category-Shadows" xml:space="preserve">
+    <value>阴影</value>
+  </data>
+  <data name="Category-Reflections" xml:space="preserve">
+    <value>反射</value>
+  </data>
+  <data name="Category-ColoredLighting" xml:space="preserve">
+    <value>色彩照明</value>
+  </data>
+  <data name="Category-PathTracing" xml:space="preserve">
+    <value>路径追踪</value>
+  </data>
+  <data name="Category-Foliage" xml:space="preserve">
+    <value>树叶</value>
+  </data>
+  <data name="Category-8xAndLower" xml:space="preserve">
+    <value>8 分辨率或更低</value>
+  </data>
+  <data name="Category-48x" xml:space="preserve">
+    <value>48 分辨率</value>
+  </data>
+  <data name="Category-Moded" xml:space="preserve">
+    <value>功能化</value>
+  </data>
+  <data name="Category-Simplistic" xml:space="preserve">
+    <value>简约风</value>
+  </data>
+  <data name="Category-Themed" xml:space="preserve">
+    <value>主题风</value>
+  </data>
+  <data name="Category-Tweaks" xml:space="preserve">
+    <value>辅助</value>
+  </data>
+  <data name="Category-Audio" xml:space="preserve">
+    <value>含音效</value>
+  </data>
+  <data name="Loader-Canvas" xml:space="preserve">
+    <value>Canvas</value>
+  </data>
+  <data name="Loader-Iris" xml:space="preserve">
+    <value>Iris</value>
+  </data>
+  <data name="Loader-OptiFine" xml:space="preserve">
+    <value>OptiFine</value>
+  </data>
+  <data name="Loader-Vanilla" xml:space="preserve">
+    <value>原版</value>
+  </data>
+  <data name="appTitle.Text" xml:space="preserve">
+    <value>Lambda Launcher</value>
+  </data>
+  <data name="setupLanguageTitleText.Text" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="setupLanguageDescriptionText.Text" xml:space="preserve">
+    <value>在开始设置 Lambda Launcher 之前，请先设置您使用的语言</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>下一步</value>
+  </data>
+  <data name="previousButton.Content" xml:space="preserve">
+    <value>上一步</value>
+  </data>
+  <data name="setupWelcome.Content" xml:space="preserve">
+    <value>欢迎</value>
+  </data>
+  <data name="setupGameRoot.Content" xml:space="preserve">
+    <value>游戏根目录</value>
+  </data>
+  <data name="Finish" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="setupJava.Content" xml:space="preserve">
+    <value>Java 运行时</value>
+  </data>
+  <data name="setupAccount.Content" xml:space="preserve">
+    <value>账户</value>
+  </data>
+  <data name="setupFinish.Content" xml:space="preserve">
+    <value>完成</value>
+  </data>
+  <data name="setupGameRootTitleText.Text" xml:space="preserve">
+    <value>游戏根目录</value>
+  </data>
+  <data name="setupGameRootDescriptionText.Text" xml:space="preserve">
+    <value>至少需要一个 .minecraft 目录来存储您的 Minecraft 实例；之后也可以在设置中修改</value>
+  </data>
+  <data name="setupList.Header" xml:space="preserve">
+    <value>当前添加：</value>
+  </data>
+  <data name="setupSelectFolderText.Text" xml:space="preserve">
+    <value>选择文件夹</value>
+  </data>
+  <data name="setupAddDefaultFolderText.Text" xml:space="preserve">
+    <value>使用官方默认文件夹</value>
+  </data>
+  <data name="setupJavaTitleText.Text" xml:space="preserve">
+    <value>Java 运行时</value>
+  </data>
+  <data name="setupJavaDescriptionText.Text" xml:space="preserve">
+    <value>至少需要一个 Java 运行时来启动游戏；之后也可以在设置中修改</value>
+  </data>
+  <data name="setupSelectText.Text" xml:space="preserve">
+    <value>选择</value>
+  </data>
+  <data name="setupSearchText.Text" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="setupAccountTitleText.Text" xml:space="preserve">
+    <value>账户</value>
+  </data>
+  <data name="setupAccountDescriptionText.Text" xml:space="preserve">
+    <value>至少需要一个账户才能开始游戏；需要微软账户才能访问在线服务器；离线账户将无法被在线服务器验证</value>
+  </data>
+  <data name="setupLoginText.Text" xml:space="preserve">
+    <value>登录</value>
+  </data>
+  <data name="setupMinecraftOfficialButton.Content" xml:space="preserve">
+    <value>Minecraft 官方网站</value>
+  </data>
+  <data name="setupFinishTitleText.Text" xml:space="preserve">
+    <value>全部完成</value>
+  </data>
+  <data name="setupFinishDescriptionText.Text" xml:space="preserve">
+    <value>您已完成 Lambda Launcher 的所有设置</value>
+  </data>
+  <data name="DefaultGameFolder" xml:space="preserve">
+    <value>官方启动器文件夹</value>
+  </data>
+</root>

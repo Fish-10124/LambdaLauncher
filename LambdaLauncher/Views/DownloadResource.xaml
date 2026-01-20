@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="LambdaLauncher.Views.DownloadResource"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:behaviors="using:LambdaLauncher.Models.Behaviors"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:interfaces="using:MinecraftLaunch.Base.Interfaces"
+      xmlns:labs="using:CommunityToolkit.WinUI.Controls"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:usercontrols="using:LambdaLauncher.UserControls"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="ResourceEntriesView" x:DataType="interfaces:IResource">
+            <Grid>
+                <usercontrols:ResourceCard x:Name="resourceDisplayCard" ResourceDisplay="{x:Bind}" Tag="{x:Bind}">
+                    <interactivity:Interaction.Behaviors>
+                        <!--  Bind command from the page's ViewModel property so the template works in both ListView and ItemsRepeater  -->
+                        <behaviors:AncestorBindingBehavior AncestorType="DownloadResource" Binding="{Binding DataContext.NavigateToDetailsCommand, Mode=OneWay}" TargetPropertyName="Command" />
+                    </interactivity:Interaction.Behaviors>
+                </usercontrols:ResourceCard>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <ListView Margin="{StaticResource PageMargin}" Padding="{StaticResource ScrollAreaPadding}" ItemContainerStyle="{StaticResource ListViewItemStyle}"
+                  ItemTemplate="{StaticResource ResourceEntriesView}" ItemsSource="{x:Bind ViewModel.ResourceList, Mode=OneWay}" SelectionMode="None">
+
+            <ListView.Header>
+                <StackPanel Spacing="5">
+                    <usercontrols:SearchHeader x:Name="searchHeader" Command="{x:Bind ViewModel.ExecuteSearchCommand}" IsLoaderTypeVisible="True" ResourceType="{x:Bind Type}" SearchArgs="{x:Bind ViewModel.SearchArgs}" />
+
+                    <StackPanel x:Name="loadingStackPanel" Spacing="5" Visibility="{x:Bind ViewModel.IsSearching, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
+                        <labs:Shimmer Height="79" />
+                        <labs:Shimmer Height="79" />
+                        <labs:Shimmer Height="79" />
+                        <labs:Shimmer Height="79" />
+                        <labs:Shimmer Height="79" />
+                    </StackPanel>
+                </StackPanel>
+            </ListView.Header>
+
+            <ListView.Footer>
+                <usercontrols:PageChanger x:Name="pageChanger" Margin="0,10,0,0" Command="{x:Bind ViewModel.ContinueSearchCommand}"
+                                          CurrentPage="{x:Bind ViewModel.SearchArgs.PageIndex, Mode=TwoWay}" TotalPage="{x:Bind ViewModel.TotalPage, Mode=OneWay}"
+                                          Visibility="{x:Bind ViewModel.IsSearching, Mode=OneWay, Converter={StaticResource BoolToVisibilityInvertConverter}}" />
+            </ListView.Footer>
+        </ListView>
+
+        <ProgressBar x:Name="progressBar" VerticalAlignment="Bottom" IsIndeterminate="True" Visibility="{x:Bind ViewModel.IsSearching, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
+    </Grid>
+</Page>

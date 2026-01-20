@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<Version>4.0.6-preview14</Version>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<PackageProjectUrl>https://github.com/Lunova-Studio/MinecraftLaunch</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/Lunova-Studio/MinecraftLaunch</RepositoryUrl>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Description>下一代全能高效化的 Minecraft 启动核心</Description>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Authors>Lunova-Studio</Authors>
+		<LangVersion>13.0</LangVersion>
+		<Title>MinecraftLaunch</Title>
+		<Nullable>disable</Nullable>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<PackageIcon>logo.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0|AnyCPU'">
+	  <IsAotCompatible>True</IsAotCompatible>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0|AnyCPU'">
+	  <IsAotCompatible>True</IsAotCompatible>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0|AnyCPU'">
+	  <IsAotCompatible>True</IsAotCompatible>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0|AnyCPU'">
+	  <IsAotCompatible>True</IsAotCompatible>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Compile Remove=".nuget\**" />
+	  <EmbeddedResource Remove=".nuget\**" />
+	  <None Remove=".nuget\**" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MinecraftLaunch.Base\MinecraftLaunch.Base.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include=".nuget\logo.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+	  <PackageReference Include="Flurl.Http" Version="4.0.2" />
+  </ItemGroup>
+
+</Project>

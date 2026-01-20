@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <BitmapImage x:Key="CraftingTable" UriSource="ms-appx:///Assets/Icons/CraftingTable.png" />
+    <BitmapImage x:Key="FabricIcon" UriSource="ms-appx:///Assets/Icons/FabricIcon.png" />
+    <BitmapImage x:Key="ForgeIcon" UriSource="ms-appx:///Assets/Icons/ForgeIcon.png" />
+    <BitmapImage x:Key="Furnace" UriSource="ms-appx:///Assets/Icons/Furnace.png" />
+    <BitmapImage x:Key="GrassBlock" UriSource="ms-appx:///Assets/Icons/GrassBlock.png" />
+    <BitmapImage x:Key="NeoForgeIcon" UriSource="ms-appx:///Assets/Icons/NeoForgeIcon.png" />
+    <BitmapImage x:Key="OptiFabricIcon" UriSource="ms-appx:///Assets/Icons/OptiFabricIcon.png" />
+    <BitmapImage x:Key="OptiFineIcon" UriSource="ms-appx:///Assets/Icons/OptiFineIcon.png" />
+    <BitmapImage x:Key="Path" UriSource="ms-appx:///Assets/Icons/Path.png" />
+    <BitmapImage x:Key="QuiltIcon" UriSource="ms-appx:///Assets/Icons/QuiltIcon.png" />
+    <BitmapImage x:Key="ReleaseIcon" UriSource="ms-appx:///Assets/Icons/Release.png" />
+    <BitmapImage x:Key="AlphaIcon" UriSource="ms-appx:///Assets/Icons/Alpha.png" />
+    <BitmapImage x:Key="BetaIcon" UriSource="ms-appx:///Assets/Icons/Beta.png" />
+</ResourceDictionary>

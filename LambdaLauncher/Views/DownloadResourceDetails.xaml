@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="LambdaLauncher.Views.DownloadResourceDetails"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:displays="using:LambdaLauncher.Models.Displays"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="using:CommunityToolkit.WinUI"
+      xmlns:usercontrol="using:LambdaLauncher.UserControls"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="CategoriesTemplate" x:DataType="x:String">
+            <Border Padding="5,0,5,2" Background="{StaticResource CategoryBorderBackgroundBrush}" CornerRadius="2">
+                <TextBlock Foreground="{ThemeResource DescriptionTextForegroundBrush}" Style="{ThemeResource CaptionTextBlockStyle}" Text="{x:Bind}" />
+            </Border>
+        </DataTemplate>
+
+        <CollectionViewSource x:Name="FilesViewSource" IsSourceGrouped="True" Source="{x:Bind ViewModel.FilesDisplay}" />
+
+        <DataTemplate x:Key="FileListItemTemplate" x:DataType="displays:SettingsCardDisplay">
+            <usercontrol:MySettingsCard Description="{x:Bind Description}" Header="{x:Bind Header}" Icon="{x:Bind Icon}" />
+        </DataTemplate>
+
+        <x:Double x:Key="IconBorderSize">100</x:Double>
+        <x:Double x:Key="FontIconSize">12</x:Double>
+    </Page.Resources>
+
+    <Grid>
+        <ListView Grid.Column="1" Margin="{StaticResource PageMargin}" Padding="{StaticResource ScrollAreaPadding}"
+                  ItemContainerStyle="{StaticResource ListViewItemStyle}" ItemTemplate="{StaticResource FileListItemTemplate}"
+                  ItemsSource="{x:Bind FilesViewSource.View}" SelectionMode="None">
+
+            <ListView.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.HeaderTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{Binding Key}" />
+                            </Grid>
+                        </DataTemplate>
+                    </GroupStyle.HeaderTemplate>
+                </GroupStyle>
+            </ListView.GroupStyle>
+
+            <ListView.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Margin="0,0,10,0" Padding="16" Style="{StaticResource ContainerBorderStyle}">
+                        <Grid x:Name="resourceDetails" ColumnSpacing="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0" Width="{StaticResource IconBorderSize}" Height="{StaticResource IconBorderSize}" VerticalAlignment="Top">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{x:Bind ViewModel.Icon}" />
+                                </Border.Background>
+                            </Border>
+
+                            <Grid Grid.Column="1" RowSpacing="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0" HorizontalAlignment="Left" ColumnSpacing="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" FontSize="20" IsTextSelectionEnabled="True"
+                                               Style="{StaticResource BodyStrongTextBlockStyle}" Text="{x:Bind ViewModel.Resource.Name}" TextTrimming="CharacterEllipsis"
+                                               TextWrapping="NoWrap" ToolTipService.Placement="Right" ToolTipService.ToolTip="{x:Bind ViewModel.Resource.Name}" />
+
+                                    <HyperlinkButton x:Name="copyResourceLink" x:Uid="resourceCopyLinkButton" Grid.Column="1"
+                                                     Margin="0,2,0,0" Padding="0" Command="{x:Bind ViewModel.CopyLinkToClipboardCommand}"
+                                                     Content="{ui:FontIcon FontSize=15, Glyph=&#xE71B;}" ToolTipService.Placement="Mouse" />
+
+                                    <HyperlinkButton x:Name="gotoResourceLink" x:Uid="resourceGotoLinkButton" Grid.Column="2"
+                                                     Margin="0,0,0,0" Padding="0" Command="{x:Bind ViewModel.GotoResourceLinkCommand}"
+                                                     Content="{ui:FontIcon FontSize=15, Glyph=&#xE8A7;}" ToolTipService.Placement="Mouse" />
+                                </Grid>
+
+                                <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Hidden" HorizontalScrollMode="Auto" VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled">
+                                    <ItemsControl ItemTemplate="{StaticResource CategoriesTemplate}" ItemsPanel="{StaticResource ItemsControlPanelTemplate}" ItemsSource="{x:Bind ViewModel.CategoryDisplays, Mode=OneWay}" />
+                                </ScrollViewer>
+
+                                <ScrollViewer Grid.Row="2" MaxHeight="38" HorizontalScrollBarVisibility="Disabled"
+                                              HorizontalScrollMode="Disabled" VerticalScrollBarVisibility="Hidden" VerticalScrollMode="Auto">
+                                    <TextBlock Foreground="{ThemeResource DescriptionTextForegroundBrush}" IsTextSelectionEnabled="True" Style="{ThemeResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.Resource.Summary}" TextWrapping="Wrap" />
+                                </ScrollViewer>
+
+                                <ScrollViewer Grid.Row="3" HorizontalScrollBarVisibility="Hidden" HorizontalScrollMode="Auto" VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled">
+                                    <Grid ColumnSpacing="5">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="300" />
+                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition Width="100" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="5">
+                                            <FontIcon FontSize="{StaticResource FontIconSize}" Glyph="&#xE739;" Style="{StaticResource FontIconStyle}" />
+
+                                            <TextBlock VerticalAlignment="Center" Foreground="{ThemeResource DescriptionTextForegroundBrush}" Style="{ThemeResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.Description}" />
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="5">
+                                            <FontIcon FontSize="{StaticResource FontIconSize}" Glyph="&#xE896;" Style="{StaticResource FontIconStyle}" />
+
+                                            <TextBlock VerticalAlignment="Center" Foreground="{ThemeResource DescriptionTextForegroundBrush}" Style="{ThemeResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.Resource.DownloadCount}" />
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="5">
+                                            <FontIcon FontSize="{StaticResource FontIconSize}" Glyph="&#xE898;" Style="{StaticResource FontIconStyle}" />
+
+                                            <TextBlock VerticalAlignment="Center" Foreground="{ThemeResource DescriptionTextForegroundBrush}" Style="{ThemeResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.Resource.DateModified.ToShortDateString()}" />
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="3" Orientation="Horizontal" Spacing="5">
+                                            <FontIcon FontSize="{StaticResource FontIconSize}" Glyph="&#xE774;" Style="{StaticResource FontIconStyle}" />
+
+                                            <TextBlock VerticalAlignment="Center" Foreground="{ThemeResource DescriptionTextForegroundBrush}" Style="{ThemeResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.WebSourceDisplay}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </ScrollViewer>
+
+                                <StackPanel Grid.Row="4" Orientation="Horizontal" Spacing="10">
+
+                                    <HyperlinkButton Padding="0">
+                                        <StackPanel Orientation="Horizontal" Spacing="2">
+                                            <FontIcon FontSize="15" Glyph="&#xE8C8;" />
+                                            <TextBlock x:Uid="resourceGotoMcWikiButtonText" />
+                                        </StackPanel>
+                                    </HyperlinkButton>
+
+                                    <HyperlinkButton Padding="0">
+                                        <StackPanel Orientation="Horizontal" Spacing="2">
+                                            <FontIcon FontSize="15" Glyph="&#xF2B7;" />
+                                            <TextBlock x:Uid="resourceTranslateDescriptionButtonText" />
+                                        </StackPanel>
+                                    </HyperlinkButton>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
+
+                    <StackPanel Grid.Row="1" Padding="0,30,0,15" Orientation="Horizontal" Spacing="5">
+                        <FontIcon Glyph="&#xE71C;" Style="{StaticResource FontIconStyle}" />
+                        <TextBlock x:Uid="resourceVersionFilter" VerticalAlignment="Center" Foreground="{ThemeResource DescriptionTextForegroundBrush}" Style="{ThemeResource CaptionTextBlockStyle}" />
+                        <ComboBox x:Name="gameVersionFilter" ItemsSource="{x:Bind ViewModel.SupportVersions}" SelectedValue="{x:Bind ViewModel.SelectedFilterTag, Mode=TwoWay}" />
+                    </StackPanel>
+                </Grid>
+            </ListView.Header>
+        </ListView>
+
+        <ProgressBar x:Name="progressBar" VerticalAlignment="Bottom" IsIndeterminate="True" Visibility="{x:Bind ViewModel.IsInitializing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+    </Grid>
+</Page>
