@@ -49,9 +49,8 @@
     <PackageReference Include="WinUIEx" Version="2.9.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Nuget\MinecraftLaunch\MinecraftLaunch.Base\MinecraftLaunch.Base.csproj" />
     <ProjectReference Include="..\..\..\Nuget\MinecraftLaunch\MinecraftLaunch\MinecraftLaunch.csproj" />
-    <ProjectReference Include="..\MinecraftLaunch.Base\MinecraftLaunch.Base.csproj" />
-    <ProjectReference Include="..\MinecraftLaunch\MinecraftLaunch.csproj" />
   </ItemGroup>
 
   <!--
