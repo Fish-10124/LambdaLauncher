@@ -35,4 +35,13 @@ public sealed partial class DownloadInstance : Page
             }
         );
     }
+
+    private void filterComboBox_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        var combo = (ComboBox)sender; 
+        if (combo.SelectedIndex < 0 && combo.Items.Count > 0) 
+        { 
+            combo.SelectedIndex = 0;
+        }
+    }
 }

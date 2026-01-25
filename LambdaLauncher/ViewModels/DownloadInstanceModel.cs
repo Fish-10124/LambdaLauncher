@@ -37,7 +37,7 @@ public partial class DownloadInstanceModel(Page framePage) : ObservableObject
     public partial bool IsInitializing { get; private set; } = false;
 
     [ObservableProperty]
-    public partial string SelectedFilterTag { get; set; } = "all";
+    public partial string SelectedFilterTag { get; set; }
 
     async partial void OnSelectedFilterTagChanged(string value)
     {

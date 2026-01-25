@@ -38,7 +38,7 @@
 
                         <TextBlock x:Uid="versionFilter" Grid.Column="1" VerticalAlignment="Center" Foreground="{ThemeResource DescriptionTextForegroundBrush}" Style="{ThemeResource CaptionTextBlockStyle}" />
 
-                        <ComboBox x:Name="filterComboBox" Grid.Column="2" SelectedIndex="0" SelectedValue="{x:Bind ViewModel.SelectedFilterTag, Mode=TwoWay}" SelectedValuePath="Tag">
+                        <ComboBox x:Name="filterComboBox" Grid.Column="2" Loaded="filterComboBox_Loaded" SelectedValue="{x:Bind ViewModel.SelectedFilterTag, Mode=TwoWay}" SelectedValuePath="Tag">
                             <ComboBoxItem x:Uid="versionFilterAll" Tag="all" />
                             <ComboBoxItem x:Uid="versionFilterRelease" Tag="release" />
                             <ComboBoxItem x:Uid="versionFilterSnapshot" Tag="snapshot" />
