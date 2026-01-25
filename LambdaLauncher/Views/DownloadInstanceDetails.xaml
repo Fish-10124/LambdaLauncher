@@ -93,6 +93,6 @@
             </Grid>
         </ScrollViewer>
 
-        <ProgressBar x:Name="progressBar" VerticalAlignment="Bottom" IsIndeterminate="True" Visibility="{x:Bind ViewModel.IsInitializing, Converter={StaticResource BoolToVisibilityConverter}}" />
+        <ProgressBar x:Name="progressBar" VerticalAlignment="Bottom" IsIndeterminate="True" Visibility="{x:Bind ViewModel.IsInitializing, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
     </Grid>
 </Page>

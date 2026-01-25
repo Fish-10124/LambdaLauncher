@@ -7,7 +7,6 @@ using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Media.Imaging;
 using MinecraftLaunch.Base.Models.Network;
 using MinecraftLaunch.Components.Installer;
-using LambdaLauncher.Extensions;
 using LambdaLauncher.Models;
 using LambdaLauncher.Models.Displays;
 using LambdaLauncher.Views;
@@ -16,6 +15,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using CommunityToolkit.WinUI.Collections;
 
 namespace LambdaLauncher.ViewModels;
 
@@ -28,7 +28,10 @@ public partial class DownloadInstanceModel(Page framePage) : ObservableObject
     public partial ObservableCollection<SettingsCardDisplay> LatestVersionDisplay { get; private set; } = [];
 
     [ObservableProperty]
-    public partial ObservableCollection<SettingsCardDisplay> VersionDisplay { get; private set; } = [];
+    public partial AdvancedCollectionView VersionDisplay { get; private set; }
+
+    [ObservableProperty]
+    public partial bool IsFiltering { get; private set; } = false;
 
     [ObservableProperty]
     public partial bool IsInitializing { get; private set; } = false;
@@ -36,23 +39,33 @@ public partial class DownloadInstanceModel(Page framePage) : ObservableObject
     [ObservableProperty]
     public partial string SelectedFilterTag { get; set; } = "all";
 
-    partial void OnSelectedFilterTagChanged(string value)
+    async partial void OnSelectedFilterTagChanged(string value)
     {
-        VersionDisplay.Clear();
+        IsFiltering = true;
 
-        VersionDisplay.AddRange(Global.InstanceVersions.Where(v => value switch
+        await Utils.WaitForNextFrameAsync(); // 确保过滤器加载动画可以显示出来
+
+        VersionDisplay.Filter = x =>
         {
-            "all" => true,
-            "aprilfool" => AprilFoolVersionId.Contains(v.Id),
-            _ => v.Type == value
-        }).Select(GetVersionDisplay));
+            var display = (SettingsCardDisplay)x;
+            var manifestEntry = (VersionManifestEntry)display.Parameter!;
+            return value switch
+            {
+                "all" => true,
+                "aprilfool" => AprilFoolVersionId.Contains(manifestEntry.Id),
+                _ => manifestEntry.Type == value
+            };
+        };
+
+        await Utils.WaitForNextFrameAsync();
+
+        VersionDisplay.RefreshFilter();
+        IsFiltering = false;
     }
 
     public async Task InitAsync()
     {
         IsInitializing = true;
-        VersionDisplay.Clear();
-        LatestVersionDisplay.Clear();
 
         try
         {
@@ -65,13 +78,21 @@ public partial class DownloadInstanceModel(Page framePage) : ObservableObject
         }
 
         // 获取最新版本
-        var latestRelease = Global.InstanceVersions.First(v => v.Type == "release");
-        var latestSnapshot = Global.InstanceVersions.First(v => v.Type == "snapshot");
-        LatestVersionDisplay.Add(GetVersionDisplay(latestRelease));
-        LatestVersionDisplay.Add(GetVersionDisplay(latestSnapshot));
+        VersionManifestEntry latestRelease = null!;
+        VersionManifestEntry latestSnapshot = null!;
+        foreach (var v in Global.InstanceVersions)
+        {
+            if (v.Type == "release" && latestRelease is null)
+                latestRelease = v;
+            if (v.Type == "snapshot" && latestSnapshot is null)
+                latestSnapshot = v;
+            if (latestRelease is not null && latestSnapshot is not null)
+                break;
+        }
+        LatestVersionDisplay = [GetVersionDisplay(latestRelease!), GetVersionDisplay(latestSnapshot!)];
 
         // 其余版本
-        VersionDisplay.AddRange(Global.InstanceVersions.Select(GetVersionDisplay));
+        VersionDisplay = new(Global.InstanceVersions.Select(GetVersionDisplay).ToList(), true);
         IsInitializing = false;
     }
 
@@ -83,7 +104,7 @@ public partial class DownloadInstanceModel(Page framePage) : ObservableObject
     private SettingsCardDisplay GetVersionDisplay(VersionManifestEntry entry)
     {
         string idText = "";
-        BitmapImage icon = new();
+        BitmapImage icon;
 
         if (IsAprilFoolEntry(entry))
         {

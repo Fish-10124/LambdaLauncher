@@ -23,7 +23,6 @@ public sealed partial class DownloadInstance : Page
         _ = ViewModel.InitAsync();
 
         InitializeComponent();
-        NavigationCacheMode = NavigationCacheMode.Enabled;
     }
 
     protected override void OnNavigatedTo(NavigationEventArgs e)

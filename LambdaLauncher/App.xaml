@@ -2,6 +2,7 @@
 <Application x:Class="LambdaLauncher.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:animation="using:CommunityToolkit.WinUI.Animations"
              xmlns:converter="using:LambdaLauncher.Converter"
              xmlns:local="using:LambdaLauncher">
     <Application.Resources>
@@ -40,12 +41,6 @@
             <TransitionCollection x:Key="EntranceFromUnderTransition">
                 <EntranceThemeTransition FromVerticalOffset="50" IsStaggeringEnabled="True" />
             </TransitionCollection>
-
-            <Style x:Key="ListViewItemStyle" TargetType="ListViewItem">
-                <Setter Property="Margin" Value="0,2" />
-                <Setter Property="Padding" Value="0" />
-                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-            </Style>
 
             <Style x:Key="FontIconStyle" TargetType="FontIcon">
                 <Setter Property="FontSize" Value="15" />

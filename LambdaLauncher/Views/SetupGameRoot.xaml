@@ -6,6 +6,7 @@
       xmlns:displays="using:LambdaLauncher.Models.Displays"
       xmlns:local="using:LambdaLauncher.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      NavigationCacheMode="Enabled"
       mc:Ignorable="d">
 
     <Page.Resources>

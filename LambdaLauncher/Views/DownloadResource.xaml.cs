@@ -3,7 +3,6 @@ using Microsoft.UI.Xaml.Navigation;
 using MinecraftLaunch.Base.Enums;
 using LambdaLauncher.Models;
 using LambdaLauncher.Models.Record;
-using LambdaLauncher.Models.UserEventArgs;
 using LambdaLauncher.ViewModels.DownloadResourceModel;
 using System;
 
@@ -36,7 +35,6 @@ public sealed partial class DownloadResource : Page
             ResourceType.Shaderpack => (new DownloadShaderModel(this), "Header-ShaderPack"),
             _ => throw new NotImplementedException()
         };
-        this.DataContext = ViewModel;
 
         App.BreadcrumbService.SetHeader(
             new PageHeader()

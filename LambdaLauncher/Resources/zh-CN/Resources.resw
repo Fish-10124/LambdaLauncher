@@ -819,8 +819,8 @@
   <data name="setupAccountDescriptionText.Text" xml:space="preserve">
     <value>至少需要一个账户才能开始游戏；需要微软账户才能访问在线服务器；离线账户将无法被在线服务器验证</value>
   </data>
-  <data name="setupLoginText.Text" xml:space="preserve">
-    <value>登录</value>
+  <data name="setupAddAccountText.Text" xml:space="preserve">
+    <value>添加账号</value>
   </data>
   <data name="setupMinecraftOfficialButton.Content" xml:space="preserve">
     <value>Minecraft 官方网站</value>

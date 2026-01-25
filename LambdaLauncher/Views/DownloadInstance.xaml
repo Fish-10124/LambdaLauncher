@@ -2,6 +2,7 @@
 <Page x:Class="LambdaLauncher.Views.DownloadInstance"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:animation="using:CommunityToolkit.WinUI.Animations"
       xmlns:behaviors="using:LambdaLauncher.Models.Behaviors"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:displays="using:LambdaLauncher.Models.Displays"
@@ -9,6 +10,7 @@
       xmlns:labs="using:CommunityToolkit.WinUI.Controls"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:usercontrols="using:LambdaLauncher.UserControls"
+      NavigationCacheMode="Enabled"
       mc:Ignorable="d">
 
     <Page.Resources>
@@ -16,19 +18,20 @@
         <StackLayout x:Name="VersionEntriesLayout" Spacing="5" />
 
         <DataTemplate x:Key="VersionEntriesView" x:DataType="displays:SettingsCardDisplay">
-            <usercontrols:MySettingsCard x:Name="versionDisplayCard" Description="{x:Bind Description}" Header="{x:Bind Header}" Icon="{x:Bind Icon}" Tag="{x:Bind}">
-                <interactivity:Interaction.Behaviors>
-                    <!--  Bind command from the page's ViewModel property so the template works in both ListView and ItemsRepeater  -->
-                    <behaviors:AncestorBindingBehavior AncestorType="DownloadInstance" Binding="{Binding ViewModel.NavigateToDetailsCommand}" TargetPropertyName="Command" />
-                </interactivity:Interaction.Behaviors>
-            </usercontrols:MySettingsCard>
+            <Grid>
+                <usercontrols:MySettingsCard x:Name="versionDisplayCard" Description="{x:Bind Description}" Header="{x:Bind Header}" Icon="{x:Bind Icon}" Tag="{x:Bind}">
+                    <interactivity:Interaction.Behaviors>
+                        <behaviors:AncestorBindingBehavior AncestorType="DownloadInstance" Binding="{Binding ViewModel.NavigateToDetailsCommand}" TargetPropertyName="Command" />
+                    </interactivity:Interaction.Behaviors>
+                </usercontrols:MySettingsCard>
+            </Grid>
+
         </DataTemplate>
     </Page.Resources>
 
     <Grid>
-        <ListView Margin="{StaticResource PageMargin}" Padding="{StaticResource ScrollAreaPadding}" ItemContainerStyle="{StaticResource ListViewItemStyle}"
-                  ItemTemplate="{StaticResource VersionEntriesView}" ItemsSource="{x:Bind ViewModel.VersionDisplay, Mode=OneWay}" SelectionMode="None">
-            <ListView.Header>
+        <ScrollViewer>
+            <StackPanel Margin="{StaticResource PageMargin}" Padding="{StaticResource ScrollAreaPadding}">
                 <StackPanel Orientation="Vertical">
                     <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Spacing="4">
                         <FontIcon Glyph="&#xE71C;" Style="{StaticResource FontIconStyle}" />
@@ -48,9 +51,29 @@
                     <StackPanel>
                         <TextBlock x:Uid="latestVersion" Padding="0,30,0,15" Style="{ThemeResource BodyStrongTextBlockStyle}" />
 
-                        <ItemsRepeater x:Name="latestVersionsList" ItemTemplate="{StaticResource VersionEntriesView}" ItemsSource="{x:Bind ViewModel.LatestVersionDisplay, Mode=OneWay}" Layout="{StaticResource VersionEntriesLayout}" />
+                        <ItemsRepeater x:Name="latestVersionsList" ItemTemplate="{StaticResource VersionEntriesView}" ItemsSource="{x:Bind ViewModel.LatestVersionDisplay, Mode=OneWay}" Layout="{StaticResource VersionEntriesLayout}" Visibility="{x:Bind ViewModel.IsInitializing, Mode=OneWay, Converter={StaticResource BoolToVisibilityInvertConverter}}">
+                            <animation:Implicit.ShowAnimations>
+                                <animation:TranslationAnimation From="0,30,0" To="0" Duration="0:0:0.3" />
+                                <animation:OpacityAnimation Delay="0:0:0.1" To="1.0" Duration="0:0:0.3" />
+                            </animation:Implicit.ShowAnimations>
+
+                            <animation:Implicit.HideAnimations>
+                                <animation:TranslationAnimation From="0" To="0,30,0" Duration="0:0:0.3" />
+                                <animation:OpacityAnimation To="0.0" Duration="0:0:0.3" />
+                            </animation:Implicit.HideAnimations>
+                        </ItemsRepeater>
 
                         <StackPanel x:Name="loadingStackPanel1" Spacing="5" Visibility="{x:Bind ViewModel.IsInitializing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <animation:Implicit.ShowAnimations>
+                                <animation:TranslationAnimation From="0,30,0" To="0" Duration="0:0:0.3" />
+                                <animation:OpacityAnimation Delay="0:0:0.1" To="1.0" Duration="0:0:0.3" />
+                            </animation:Implicit.ShowAnimations>
+
+                            <animation:Implicit.HideAnimations>
+                                <animation:TranslationAnimation From="0" To="0,30,0" Duration="0:0:0.3" />
+                                <animation:OpacityAnimation To="0.0" Duration="0:0:0.3" />
+                            </animation:Implicit.HideAnimations>
+
                             <labs:Shimmer Height="70" />
                             <labs:Shimmer Height="70" />
                         </StackPanel>
@@ -62,18 +85,44 @@
                         <Run Text="{x:Bind ViewModel.VersionDisplay.Count, Mode=OneWay}" />
                         <Run Text=")" />
                     </TextBlock>
+                </StackPanel>
 
+                <Grid>
                     <StackPanel x:Name="loadingStackPanel2" Spacing="5" Visibility="{x:Bind ViewModel.IsInitializing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <animation:Implicit.ShowAnimations>
+                            <animation:TranslationAnimation From="0,30,0" To="0" Duration="0:0:0.3" />
+                            <animation:OpacityAnimation Delay="0:0:0.1" To="1.0" Duration="0:0:0.3" />
+                        </animation:Implicit.ShowAnimations>
+
+                        <animation:Implicit.HideAnimations>
+                            <animation:TranslationAnimation From="0" To="0,30,0" Duration="0:0:0.3" />
+                            <animation:OpacityAnimation To="0.0" Duration="0:0:0.3" />
+                        </animation:Implicit.HideAnimations>
+
                         <labs:Shimmer Height="70" />
                         <labs:Shimmer Height="70" />
                         <labs:Shimmer Height="70" />
                         <labs:Shimmer Height="70" />
                         <labs:Shimmer Height="70" />
                     </StackPanel>
-                </StackPanel>
-            </ListView.Header>
-        </ListView>
 
-        <ProgressBar x:Name="progressBar" VerticalAlignment="Bottom" IsIndeterminate="True" Visibility="{x:Bind ViewModel.IsInitializing, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
+                    <ItemsRepeater ItemTemplate="{StaticResource VersionEntriesView}" ItemsSource="{x:Bind ViewModel.VersionDisplay, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsFiltering, Mode=OneWay, Converter={StaticResource BoolToVisibilityInvertConverter}}">
+                        <animation:Implicit.ShowAnimations>
+                            <animation:TranslationAnimation From="0,30,0" To="0" Duration="0:0:0.3" />
+                            <animation:OpacityAnimation Delay="0:0:0.1" To="1.0" Duration="0:0:0.3" />
+                        </animation:Implicit.ShowAnimations>
+
+                        <animation:Implicit.HideAnimations>
+                            <animation:TranslationAnimation From="0" To="0,30,0" Duration="0:0:0.3" />
+                            <animation:OpacityAnimation To="0.0" Duration="0:0:0.3" />
+                        </animation:Implicit.HideAnimations>
+                    </ItemsRepeater>
+                </Grid>
+
+            </StackPanel>
+        </ScrollViewer>
+
+
+        <ProgressBar x:Name="progressBar" VerticalAlignment="Bottom" IsIndeterminate="True" Visibility="{x:Bind ViewModel.IsFiltering, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}" />
     </Grid>
 </Page>

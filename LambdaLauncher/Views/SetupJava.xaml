@@ -3,9 +3,23 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:game="using:MinecraftLaunch.Base.Models.Game"
       xmlns:local="using:LambdaLauncher.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      NavigationCacheMode="Enabled"
       mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="JavaListTemplate" x:DataType="game:JavaEntry">
+            <StackPanel Orientation="Horizontal" Spacing="5">
+                <FontIcon Glyph="&#xEC32;" />
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind JavaVersion}" />
+                    <TextBlock Foreground="{ThemeResource DescriptionTextForegroundBrush}" Style="{ThemeResource CaptionTextBlockStyle}" Text="{x:Bind JavaPath}" />
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -19,14 +33,14 @@
 
             <StackPanel Orientation="Horizontal" Spacing="5">
 
-                <Button MinWidth="100" Style="{ThemeResource AccentButtonStyle}">
+                <Button MinWidth="100" Command="{x:Bind ViewModel.SearchJavasCommand}" Style="{ThemeResource AccentButtonStyle}">
                     <StackPanel Orientation="Horizontal" Spacing="5">
                         <FontIcon FontSize="15" Glyph="&#xE71E;" />
                         <TextBlock x:Uid="setupSearchText" />
                     </StackPanel>
                 </Button>
 
-                <Button MinWidth="100" Style="{ThemeResource AccentButtonStyle}">
+                <Button MinWidth="100" Command="{x:Bind ViewModel.SelectJavaCommand}" Style="{ThemeResource AccentButtonStyle}">
                     <StackPanel Orientation="Horizontal" Spacing="5">
                         <FontIcon FontSize="15" Glyph="&#xED43;" />
                         <TextBlock x:Uid="setupSelectText" />
@@ -36,8 +50,8 @@
             </StackPanel>
         </StackPanel>
 
-        <ListView x:Uid="setupList" Grid.Column="1" VerticalAlignment="Center">
+        <ListView x:Uid="setupList" Grid.Column="1" VerticalAlignment="Center" ItemTemplate="{StaticResource JavaListTemplate}" ItemsSource="{x:Bind ViewModel.Javas, Mode=OneWay}" />
 
-        </ListView>
+        <ProgressBar x:Name="progressBar" VerticalAlignment="Bottom" IsIndeterminate="True" Visibility="{x:Bind ViewModel.IsSearching, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
     </Grid>
 </Page>
