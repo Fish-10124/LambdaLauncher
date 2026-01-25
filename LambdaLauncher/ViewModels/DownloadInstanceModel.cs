@@ -66,6 +66,7 @@ public partial class DownloadInstanceModel(Page framePage) : ObservableObject
     public async Task InitAsync()
     {
         IsInitializing = true;
+        IsFiltering = true;
 
         try
         {
@@ -94,6 +95,7 @@ public partial class DownloadInstanceModel(Page framePage) : ObservableObject
         // 其余版本
         VersionDisplay = new(Global.InstanceVersions.Select(GetVersionDisplay).ToList(), true);
         IsInitializing = false;
+        IsFiltering = false;
     }
 
     private bool IsAprilFoolEntry(VersionManifestEntry entry)

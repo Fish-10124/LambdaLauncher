@@ -60,11 +60,13 @@ public abstract partial class ResourceDetailsModel : ResourceModel
     public async Task InitAsync(IResource resource)
     {
         IsInitializing = true;
+        IsFiltering = true;
 
         Init(resource);
 
         await GetFileInfosAsync();
         IsInitializing = false;
+        IsFiltering = false;
     }
 
     private async Task GetFileInfosAsync()
