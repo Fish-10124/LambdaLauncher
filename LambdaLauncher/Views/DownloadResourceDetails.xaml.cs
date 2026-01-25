@@ -58,4 +58,13 @@ public sealed partial class DownloadResourceDetails : Page
 
         await ViewModel.InitAsync(resource);
     }
+
+    private void gameVersionFilter_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    {
+        var combo = (ComboBox)sender;
+        if (combo.SelectedIndex < 0 && combo.Items.Count > 0)
+        {
+            combo.SelectedIndex = 0;
+        }
+    }
 }
