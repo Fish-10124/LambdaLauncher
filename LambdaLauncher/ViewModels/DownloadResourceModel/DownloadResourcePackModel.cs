@@ -88,12 +88,12 @@ public partial class DownloadResourcePackModel(Page framePage) : DownloadResourc
 
     protected override ResourceSearchArgs? ReadSearchArgs()
     {
-        return Global.LastSearchArgs[ResourceType.Mod];
+        return Global.LastSearchArgs[ResourceType.Resourcepack];
     }
 
     protected override void SaveSearchArgs()
     {
-        Global.LastSearchArgs[ResourceType.Mod] = SearchArgs;
+        Global.LastSearchArgs[ResourceType.Resourcepack] = SearchArgs;
     }
 
     protected override async Task<CurseForgeSearchResult> SearchCFResourceAsync(int index)

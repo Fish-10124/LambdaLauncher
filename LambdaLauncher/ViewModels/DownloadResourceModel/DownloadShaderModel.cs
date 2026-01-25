@@ -60,12 +60,12 @@ public partial class DownloadShaderModel(Page framePage) : DownloadResourceModel
 
     protected override ResourceSearchArgs? ReadSearchArgs()
     {
-        return Global.LastSearchArgs[ResourceType.Mod];
+        return Global.LastSearchArgs[ResourceType.Shaderpack];
     }
 
     protected override void SaveSearchArgs()
     {
-        Global.LastSearchArgs[ResourceType.Mod] = SearchArgs;
+        Global.LastSearchArgs[ResourceType.Shaderpack] = SearchArgs;
     }
 
     protected override async Task<CurseForgeSearchResult> SearchCFResourceAsync(int index)
