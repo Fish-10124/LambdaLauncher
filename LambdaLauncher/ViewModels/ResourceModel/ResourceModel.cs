@@ -15,7 +15,7 @@ namespace LambdaLauncher.ViewModels.ResourceModel;
 
 public abstract partial class ResourceModel : ObservableObject
 {
-    private readonly IEnumerable<string> AllGameVersions = Global.InstanceVersions.Select(v => v.Id);
+    private readonly IEnumerable<string> AllGameVersions = App.InstanceVersions.Select(v => v.Id);
 
     [ObservableProperty]
     public partial IResource Resource { get; set; }
@@ -131,18 +131,20 @@ public abstract partial class ResourceModel : ObservableObject
             return key == null ? Enumerable.Empty<string>() : [Utils.ResourceLoader.GetString($"Loader-{key}")];
         });
 
-        return new(
-            header: file.DisplayName,
-            description: $"{string.Format(Utils.ResourceLoader.GetString("FileDetails-FileName"), file.FileName)}, " +
+        return new() 
+        {
+            Header = file.DisplayName,
+            Description = $"{string.Format(Utils.ResourceLoader.GetString("FileDetails-FileName"), file.FileName)}, " +
                          $"{string.Format(Utils.ResourceLoader.GetString("FileDetails-DownloadCount"), file.DownloadCount)}, " +
                          $"{string.Format(Utils.ResourceLoader.GetString("FileDetails-ReleaseDate"), file.Published.ToShortDateString())}",
-            icon: Utils.GetIconFromResources(file.ReleaseType switch
+            Icon = Utils.GetIconFromResources(file.ReleaseType switch
             {
                 FileReleaseType.Release => "ReleaseIcon",
                 FileReleaseType.Beta => "BetaIcon",
                 FileReleaseType.Alpha => "AlphaIcon",
                 _ => throw new NotImplementedException(),
             })!,
-            parameter: file.GameVersions.CartesianProduct(loaderStrings, (ver, loader) => $"{loader} {ver}", EmptyCartesianBehavior.ReturnSource));
+            Parameter = file.GameVersions.CartesianProduct(loaderStrings, (ver, loader) => $"{loader} {ver}", EmptyCartesianBehavior.ReturnSource)
+        };
     }
 }

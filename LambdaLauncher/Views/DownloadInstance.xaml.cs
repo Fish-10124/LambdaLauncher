@@ -27,7 +27,7 @@ public sealed partial class DownloadInstance : Page
 
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
-        App.BreadcrumbService.SetHeader(
+        App.NavigationService.SetHeader(
             new PageHeader()
             {
                 Page = typeof(DownloadInstance), 

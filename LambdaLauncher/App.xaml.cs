@@ -1,4 +1,5 @@
 ﻿using LambdaLauncher.Models;
+using LambdaLauncher.Models.Displays;
 using LambdaLauncher.Models.Record;
 using LambdaLauncher.Services;
 using LambdaLauncher.Views;
@@ -10,6 +11,8 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
+using MinecraftLaunch.Base.Enums;
+using MinecraftLaunch.Base.Models.Network;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -34,11 +37,23 @@ namespace LambdaLauncher
     /// </summary>
     public partial class App : Application
     {
+        public const string ClientId = "0f801576-94de-4c1a-8a0e-6f0434331984";
+
+        public static readonly Dictionary<ModLoaderType, ModLoaderSelectDisplay> ModLoaderSelectDisplays = new()
+        {
+            {ModLoaderType.Any,      new() { LoaderType = ModLoaderType.Any,      DisplayText = "AllModLoader" }},
+            {ModLoaderType.Forge,    new() { LoaderType = ModLoaderType.Forge,    DisplayText = "Loader-Forge" }},
+            {ModLoaderType.NeoForge, new() { LoaderType = ModLoaderType.NeoForge, DisplayText = "Loader-NeoForge" }},
+            {ModLoaderType.Fabric,   new() { LoaderType = ModLoaderType.Fabric,   DisplayText = "Loader-Fabric" }},
+            {ModLoaderType.Quilt,    new() { LoaderType = ModLoaderType.Quilt,    DisplayText = "Loader-Quilt" }}
+        };
+
         public static Window? MainWindow { get; private set; }
         public static Window? SetupWindow { get; private set; }
 
-        public static BreadcrumbService BreadcrumbService { get; } = new();
         public static NavigationService NavigationService { get; } = new();
+        public static IEnumerable<VersionManifestEntry> InstanceVersions { get; set; } = [];
+        public static LocalConfig LocalConfig { get; set; } = new();
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -91,7 +106,7 @@ namespace LambdaLauncher
                 var file = await folder.GetFileAsync("config.json");
 
                 string configJson = await FileIO.ReadTextAsync(file);
-                Global.LocalConfig = JsonSerializer.Deserialize<LocalConfig>(configJson)!;
+                LocalConfig = JsonSerializer.Deserialize<LocalConfig>(configJson)!;
 
                 return true;
             }

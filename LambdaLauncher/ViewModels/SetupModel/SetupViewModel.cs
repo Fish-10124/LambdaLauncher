@@ -8,32 +8,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.UI.Xaml.Media.Animation;
 
 namespace LambdaLauncher.ViewModels;
 
-public partial class SetupViewModel : ObservableObject
+public partial class SetupViewModel(NavigationView navView, Frame contentFrame) : ObservableObject
 {
+    private readonly NavigationView NavView = navView;
+    private readonly Frame ContentFrame = contentFrame;
+
     [ObservableProperty]
-    public partial bool CanPrevious { get; private set; } = false;
+    [NotifyPropertyChangedFor(nameof(CanPrevious))]
+    [NotifyPropertyChangedFor(nameof(CanFinish))]
+    [NotifyPropertyChangedFor(nameof(NextButtonText))]
+    public partial int CurrentPageIndex { get; set; } = 0;
+
+    public bool CanPrevious => CurrentPageIndex > 0;
+    public bool CanFinish => CurrentPageIndex == NavView.MenuItems.Count - 1;
+    public string NextButtonText => Utils.ResourceLoader.GetString(CanFinish ? "Finish" : "Next");
+
+    [ObservableProperty]
+    public partial bool CanNext { get; set; } = false;
+
 
     public void Navigate(NavigationViewSelectionChangedEventArgs args)
     {
-        Type? page = args.SelectedItemContainer.Name switch
+        var selectedItem = (NavigationViewItem)args.SelectedItem;
+        Navigate(selectedItem.Name, args.RecommendedNavigationTransitionInfo);
+    }
+
+    private void Navigate(string pageName, NavigationTransitionInfo? transitionInfo = null)
+    {
+        Type? page = pageName switch
         {
             "setupWelcome" => typeof(SetupWelcome),
             "setupGameRoot" => typeof(SetupGameRoot),
             "setupJava" => typeof(SetupJava),
-            "setupAccount" => typeof(SetupAccount),
             "setupFinish" => typeof(SetupFinish),
             _ => null
         };
 
-        if (page != null)
+        if (page is not null)
         {
-            App.NavigationService.Navigate(page, null, args.RecommendedNavigationTransitionInfo);
-
-            var currentIndex = App.NavigationService.NavigationView!.MenuItems.IndexOf(args.SelectedItem);
-            CanPrevious = currentIndex > 0;
+            ContentFrame.Navigate(page, null, transitionInfo);
         }
     }
 
@@ -45,22 +62,40 @@ public partial class SetupViewModel : ObservableObject
     [RelayCommand]
     private void Previous(NavigationViewItem selectedItem)
     {
-        int currentIndex = App.NavigationService.NavigationView!.MenuItems.IndexOf(selectedItem);
-        if (currentIndex > 0)
+        if (CanPrevious)
         {
-            App.NavigationService.NavigationView.SelectedItem = App.NavigationService.NavigationView.MenuItems[currentIndex - 1];
+            CurrentPageIndex--;
+            Navigate(GetPreviousItem(selectedItem).Name);
         }
     }
 
     [RelayCommand]
     private void Next(NavigationViewItem selectedItem)
     {
-        var currentIndex = App.NavigationService.NavigationView!.MenuItems.IndexOf(selectedItem);
-        if (currentIndex < App.NavigationService.NavigationView.MenuItems.Count - 1)
+        if (CanNext)
         {
-            var item = (NavigationViewItem)App.NavigationService.NavigationView.MenuItems[currentIndex + 1];
-            item.IsEnabled = true;
-            App.NavigationService.NavigationView.SelectedItem = item;
+            CurrentPageIndex++;
+            Navigate(GetNextItem(selectedItem).Name);
         }
+    }
+
+    private NavigationViewItem GetNextItem(NavigationViewItem selectedItem)
+    {
+        var currentIndex = NavView.MenuItems.IndexOf(selectedItem);
+        if (currentIndex < 0 || currentIndex > NavView.MenuItems.Count - 1)
+        {
+            throw new IndexOutOfRangeException("Selected item is out of range.");
+        }
+        return (NavigationViewItem)NavView.MenuItems[currentIndex + 1];
+    }
+
+    private NavigationViewItem GetPreviousItem(NavigationViewItem selectedItem)
+    {
+        var currentIndex = NavView.MenuItems.IndexOf(selectedItem);
+        if (currentIndex < 0 || currentIndex > NavView.MenuItems.Count - 1)
+        {
+            throw new IndexOutOfRangeException("Selected item is out of range.");
+        }
+        return (NavigationViewItem)NavView.MenuItems[currentIndex - 1];
     }
 }

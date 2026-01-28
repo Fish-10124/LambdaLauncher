@@ -32,7 +32,7 @@ public sealed partial class DownloadInstanceDetails : Page
 
         var display = (SettingsCardDisplay)e.Parameter;
 
-        App.BreadcrumbService.SetHeader(
+        App.NavigationService.SetHeader(
             new PageHeader()
             {
                 Page = typeof(DownloadInstance),

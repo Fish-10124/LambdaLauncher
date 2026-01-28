@@ -3,10 +3,10 @@ using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
 using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Base.Interfaces;
-using LambdaLauncher.Models;
 using LambdaLauncher.Models.Record;
 using LambdaLauncher.ViewModels.ResourceModel;
 using System;
+using Microsoft.UI.Xaml;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -32,23 +32,16 @@ public sealed partial class DownloadResourceDetails : Page
         anim?.TryStart(resourceDetails);
 
         var resource = (IResource)e.Parameter;
-        (ViewModel, string headerText) = resource.ResourceType switch
+        ViewModel = resource.ResourceType switch
         {
-            ResourceType.Mod => ((ResourceDetailsModel)new ModDetailsResourceModel(), "Header-Mod"),
-            ResourceType.Modpack => (new ModPackDetailsResourceModel(), "Header-ModPack"),
-            ResourceType.Resourcepack => (new ResourcePackDetailsResourceModel(), "Header-ResourcePack"),
-            ResourceType.Shaderpack => (new ShaderDetailsResourceModel(), "Header-ShaderPack"),
+            ResourceType.Mod => new ModDetailsResourceModel(),
+            ResourceType.Modpack => new ModPackDetailsResourceModel(),
+            ResourceType.Resourcepack => new ResourcePackDetailsResourceModel(),
+            ResourceType.Shaderpack => new ShaderDetailsResourceModel(),
             _ => throw new NotImplementedException()
         };
 
-        App.BreadcrumbService.SetHeader(
-            new PageHeader()
-            {
-                Page = typeof(DownloadResource),
-                Text = Utils.ResourceLoader.GetString(headerText),
-                Parameter = resource.ResourceType,
-                InfoOverride = new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromLeft }
-            },
+        App.NavigationService.AddHeader(
             new PageHeader()
             {
                 Page = typeof(DownloadResourceDetails),
@@ -59,7 +52,7 @@ public sealed partial class DownloadResourceDetails : Page
         await ViewModel.InitAsync(resource);
     }
 
-    private void gameVersionFilter_Loaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+    private void gameVersionFilter_Loaded(object sender, RoutedEventArgs e)
     {
         var combo = (ComboBox)sender;
         if (combo.SelectedIndex < 0 && combo.Items.Count > 0)

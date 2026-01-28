@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="LambdaLauncher.Views.AccountManagement"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:displays="using:LambdaLauncher.Models.Displays"
+      xmlns:local="using:LambdaLauncher.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:usercontrols="using:LambdaLauncher.UserControls"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="AccountListTemplate" x:DataType="displays:SettingsCardDisplay">
+            <Grid>
+                <usercontrols:MySettingsCard Description="{x:Bind Description}" Header="{x:Bind Header}" Icon="{x:Bind Icon}" />
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <ScrollViewer>
+            <StackPanel Margin="{StaticResource PageMargin}" Padding="{StaticResource ScrollAreaPadding}">
+                <ItemsRepeater ItemTemplate="{StaticResource AccountListTemplate}" />
+                <usercontrols:MySettingsCard />
+            </StackPanel>
+        </ScrollViewer>
+
+        <ProgressBar x:Name="progressBar" VerticalAlignment="Bottom" IsIndeterminate="True" Visibility="{x:Bind ViewModel.IsLoading, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
+    </Grid>
+</Page>

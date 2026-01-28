@@ -11,6 +11,16 @@
 
     <UserControl.Resources>
         <numberformatting:DecimalFormatter x:Key="IntegerFormatter" FractionDigits="0" />
+
+        <Flyout x:Key="PageInputFlyout" x:Name="pageInputFlyout">
+            <StackPanel Orientation="Horizontal">
+                <NumberBox x:Name="pageInputBox" NumberFormatter="{StaticResource IntegerFormatter}" SpinButtonPlacementMode="Inline" ValueChanged="pageInputBox_ValueChanged" Value="{x:Bind ViewModel.CurrentPageDisplay, Mode=OneWay}" />
+                <TextBlock VerticalAlignment="Center" Style="{ThemeResource BodyTextBlockStyle}">
+                    <Run Text=" / " />
+                    <Run Text="{x:Bind TotalPage, Mode=OneWay}" />
+                </TextBlock>
+            </StackPanel>
+        </Flyout>
     </UserControl.Resources>
 
     <Grid>
@@ -26,20 +36,8 @@
                                  Click="PreviousPageButton_Click" Content="{ui:FontIcon FontSize=15, Glyph=&#xE76B;}"
                                  Foreground="{ThemeResource ButtonForegroundThemeBrush}" Style="{ThemeResource DateTimePickerFlyoutButtonStyle}" />
 
-                <Button Width="50" Height="30" HorizontalAlignment="Center" Background="Transparent" Content="{x:Bind ViewModel.CurrentPageDisplay, Mode=OneWay}">
-                    <Button.Flyout>
-                        <Flyout x:Name="pageInputFlyout">
-                            <StackPanel Orientation="Horizontal">
-                                <NumberBox x:Name="pageInputBox" NumberFormatter="{StaticResource IntegerFormatter}" SpinButtonPlacementMode="Inline" ValueChanged="pageInputBox_ValueChanged" Value="{x:Bind ViewModel.CurrentPageDisplay, Mode=OneWay}" />
-                                <TextBlock VerticalAlignment="Center" Style="{ThemeResource BodyTextBlockStyle}">
-                                    <Run Text=" / " />
-                                    <Run Text="{x:Bind TotalPage, Mode=OneWay}" />
-                                </TextBlock>
-                            </StackPanel>
-                        </Flyout>
-                    </Button.Flyout>
-                </Button>
-
+                <Button Width="50" Height="30" HorizontalAlignment="Center"
+                        Background="Transparent" Content="{x:Bind ViewModel.CurrentPageDisplay, Mode=OneWay}" Flyout="{StaticResource PageInputFlyout}" />
                 <HyperlinkButton x:Name="NextPageButton" Width="40" Height="40"
                                  Click="NextPageButton_Click" Content="{ui:FontIcon FontSize=15, Glyph=&#xE76C;}" Foreground="{ThemeResource ButtonForegroundThemeBrush}"
                                  Style="{ThemeResource DateTimePickerFlyoutButtonStyle}" />

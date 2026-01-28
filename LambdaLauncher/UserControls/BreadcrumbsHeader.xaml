@@ -14,6 +14,6 @@
     </UserControl.Resources>
 
     <Grid>
-        <BreadcrumbBar x:Name="baseBreadcrumbBar" ItemTemplate="{StaticResource breadcrumbBarTemplate}" ItemsSource="{x:Bind Header, Mode=OneWay}" />
+        <BreadcrumbBar x:Name="baseBreadcrumbBar" ItemTemplate="{StaticResource breadcrumbBarTemplate}" ItemsSource="{x:Bind HeaderItems, Mode=OneWay}" />
     </Grid>
 </UserControl>

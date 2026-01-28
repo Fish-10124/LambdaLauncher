@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Page x:Class="LambdaLauncher.Views.DownloadResource"
+<Page x:Class="LambdaLauncher.Views.DownloadModpack"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:animation="using:CommunityToolkit.WinUI.Animations"
@@ -10,6 +10,7 @@
       xmlns:labs="using:CommunityToolkit.WinUI.Controls"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:usercontrols="using:LambdaLauncher.UserControls"
+      NavigationCacheMode="Enabled"
       mc:Ignorable="d">
 
     <Page.Resources>
@@ -18,7 +19,7 @@
                 <usercontrols:ResourceCard x:Name="resourceDisplayCard" ResourceDisplay="{x:Bind}" Tag="{x:Bind}">
                     <interactivity:Interaction.Behaviors>
                         <!--  Bind command from the page's ViewModel property so the template works in both ListView and ItemsRepeater  -->
-                        <behaviors:AncestorBindingBehavior AncestorType="DownloadResource" Binding="{Binding ViewModel.NavigateToDetailsCommand, Mode=OneWay}" TargetPropertyName="Command" />
+                        <behaviors:AncestorBindingBehavior AncestorType="DownloadModpack" Binding="{Binding ViewModel.NavigateToDetailsCommand, Mode=OneWay}" TargetPropertyName="Command" />
                     </interactivity:Interaction.Behaviors>
                 </usercontrols:ResourceCard>
             </Grid>
@@ -28,7 +29,8 @@
     <Grid>
         <ScrollViewer>
             <StackPanel Margin="{StaticResource PageMargin}" Padding="{StaticResource ScrollAreaPadding}">
-                <usercontrols:SearchHeader x:Name="searchHeader" Command="{x:Bind ViewModel.ExecuteSearchCommand}" IsLoaderTypeVisible="True" ResourceType="{x:Bind Type}" SearchArgs="{x:Bind ViewModel.SearchArgs}" />
+                <usercontrols:SearchHeader x:Name="searchHeader" Command="{x:Bind ViewModel.ExecuteSearchCommand}" IsLoaderTypeVisible="True"
+                                           ResourceType="Modpack" SearchArgs="{x:Bind ViewModel.SearchArgs}" SortOrders="{x:Bind ViewModel.ResourceSortOrders.Values}" />
 
                 <Grid>
                     <ItemsRepeater ItemTemplate="{StaticResource ResourceEntriesView}" ItemsSource="{x:Bind ViewModel.ResourceList, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsSearching, Mode=OneWay, Converter={StaticResource BoolToVisibilityInvertConverter}}">

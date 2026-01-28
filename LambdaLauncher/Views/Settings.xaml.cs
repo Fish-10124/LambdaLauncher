@@ -20,10 +20,10 @@ public sealed partial class Settings : Page
 
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
-        App.BreadcrumbService.SetHeader(
+        App.NavigationService.SetHeader(
             new PageHeader()
             {
-                Page = typeof(DownloadResource),
+                Page = typeof(Settings),
                 Text = Utils.ResourceLoader.GetString("Header-Settings")
             }
         );

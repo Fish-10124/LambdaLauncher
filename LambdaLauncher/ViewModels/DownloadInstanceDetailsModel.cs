@@ -70,7 +70,7 @@ public partial class DownloadInstanceDetailsModel : ObservableObject
     /// <returns></returns>
     public async Task InitAsync(SettingsCardDisplay InstanceDisplay)
     {
-        IsInitializing = false;
+        IsInitializing = true;
 
         this.InstanceDisplay = InstanceDisplay;
 
@@ -91,7 +91,7 @@ public partial class DownloadInstanceDetailsModel : ObservableObject
         }
         finally
         {
-            IsInitializing = true;
+            IsInitializing = false;
         }
     }
 

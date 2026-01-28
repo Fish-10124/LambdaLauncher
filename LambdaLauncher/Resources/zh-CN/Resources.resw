@@ -834,4 +834,16 @@
   <data name="DefaultGameFolder" xml:space="preserve">
     <value>官方启动器文件夹</value>
   </data>
+  <data name="Header-Account" xml:space="preserve">
+    <value>账号</value>
+  </data>
+  <data name="LoginMethod-Offline" xml:space="preserve">
+    <value>离线登录</value>
+  </data>
+  <data name="LoginMethod-Microsoft" xml:space="preserve">
+    <value>微软登录</value>
+  </data>
+  <data name="LoginMethod-Yggdrasil" xml:space="preserve">
+    <value>Yggdrasil 第三方登录</value>
+  </data>
 </root>

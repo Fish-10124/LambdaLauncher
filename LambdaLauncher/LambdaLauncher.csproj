@@ -14,7 +14,14 @@
     <Nullable>enable</Nullable>
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
-
+  <ItemGroup>
+    <None Remove="Views\AccountManagement.xaml" />
+    <None Remove="Views\DownloadMod.xaml" />
+    <None Remove="Views\DownloadModpack.xaml" />
+    <None Remove="Views\DownloadResourcePack.xaml" />
+    <None Remove="Views\DownloadShader.xaml" />
+    <None Remove="Views\SetupNavigation.xaml" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -52,6 +59,41 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Nuget\MinecraftLaunch\MinecraftLaunch.Base\MinecraftLaunch.Base.csproj" />
     <ProjectReference Include="..\..\..\Nuget\MinecraftLaunch\MinecraftLaunch\MinecraftLaunch.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\DownloadShader.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\DownloadResourcePack.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\DownloadModpack.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\DownloadMod.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\AccountManagement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\SetupNavigation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\MainNavigation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 
   <!--

@@ -1,17 +1,18 @@
-﻿using Microsoft.UI.Xaml.Controls;
+﻿using LambdaLauncher.Models;
+using LambdaLauncher.Models.Displays;
+using LambdaLauncher.Models.Record;
+
+using Microsoft.UI.Xaml.Controls;
 using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Base.Models.Network;
-using LambdaLauncher.Models;
-using LambdaLauncher.Models.Displays;
 using System;
 using System.Threading.Tasks;
-using LambdaLauncher.Models.Record;
 
 namespace LambdaLauncher.ViewModels.DownloadResourceModel;
 
-public partial class DownloadModModel(Page framePage) : DownloadResourceModel(framePage)
+public partial class DownloadModModel : DownloadResourceModel
 {
-    public static readonly AllCategoryDisplay[] CategoryDisplays = 
+    public static readonly AllCategoryDisplay[] CategoryDisplays =
     [
         new() { CurseForgeId = null, CurseForgeIdText = "All",                       ModrinthId =  "",               DisplayText = "Category-All" },
         new() { CurseForgeId =  412, CurseForgeIdText = "Technology",                ModrinthId =  "technology",     DisplayText = "Category-Technology" },
@@ -26,7 +27,7 @@ public partial class DownloadModModel(Page framePage) : DownloadResourceModel(fr
         new() { CurseForgeId =  420, CurseForgeIdText = "Storage",                   ModrinthId =  "storage",        DisplayText = "Category-Storage" },
     ];
 
-    public static readonly CurseForgeCategoryDisplay[] CurseForgeCategoryDisplays = 
+    public static readonly CurseForgeCategoryDisplay[] CurseForgeCategoryDisplays =
     [
         new() { Id = null, IdText = "All",                               DisplayText = "Category-All" },
 
@@ -38,7 +39,7 @@ public partial class DownloadModModel(Page framePage) : DownloadResourceModel(fr
         new() { Id =  408, IdText = "Ores and Resources",                DisplayText = "Category-OresAndResources" },
         new() { Id =  409, IdText = "Structures",                        DisplayText = "Category-Structures" },
 
-        // 科技                                                          
+        // 科技
         new() { Id =  412, IdText = "Technology",                        DisplayText = "Category-Technology" },
         new() { Id = 4843, IdText = "Automation",                        DisplayText = "Category-Automation" },
         new() { Id =  417, IdText = "Energy",                            DisplayText = "Category-Energy" },
@@ -89,7 +90,7 @@ public partial class DownloadModModel(Page framePage) : DownloadResourceModel(fr
         new() { Id = 8937, IdText = "ModJam 2025",                       DisplayText = "Category-ModJam2025" }
     ];
 
-    public static readonly ModrinthCategoryDisplay[] ModrinthCategoryDisplays = 
+    public static readonly ModrinthCategoryDisplay[] ModrinthCategoryDisplays =
     [
         new() { Id = "",               DisplayText = "Category-All" },
 
@@ -114,16 +115,6 @@ public partial class DownloadModModel(Page framePage) : DownloadResourceModel(fr
         new() { Id = "transportation", DisplayText = "Category-PlayerTransport" }
     ];
 
-    protected override ResourceSearchArgs? ReadSearchArgs()
-    {
-        return Global.LastSearchArgs[ResourceType.Mod];
-    }
-
-    protected override void SaveSearchArgs()
-    {
-        Global.LastSearchArgs[ResourceType.Mod] = SearchArgs;
-    }
-
     protected override async Task<CurseForgeSearchResult> SearchCFResourceAsync(int index)
     {
         var curseforgeOptions = new CurseforgeSearchOptions()
@@ -137,7 +128,7 @@ public partial class DownloadModModel(Page framePage) : DownloadResourceModel(fr
                 CurseForgeCategoryDisplay cf => cf.Id,
                 _ => throw new NotImplementedException()
             },
-            SortField = Global.ResourceSortMethods[SearchArgs.SortMethod].CurseForgeSortType!.Value,
+            SortField = ResourceSortOrders[SearchArgs.SortMethod].CurseForgeSortType!.Value,
             ModLoaderType = SearchArgs.ModLoader.LoaderType,
             SortOrder = SortOrder.Desc,
             PageSize = PageSize,
@@ -160,7 +151,7 @@ public partial class DownloadModModel(Page framePage) : DownloadResourceModel(fr
                 ModrinthCategoryDisplay mr => mr.Id,
                 _ => throw new NotImplementedException()
             },
-            Index = Global.ResourceSortMethods[SearchArgs.SortMethod].ModrinthSortType!.Value,
+            Index = ResourceSortOrders[SearchArgs.SortMethod].ModrinthSortType!.Value,
             ModLoader = SearchArgs.ModLoader.LoaderType,
             Limit = PageSize,
             Offset = index

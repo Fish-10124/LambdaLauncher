@@ -1,10 +1,10 @@
 ﻿using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
-using MinecraftLaunch.Components.Authenticator;
 using MinecraftLaunch.Components.Parser;
 using MinecraftLaunch.Components.Provider;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.ApplicationModel.Resources;
@@ -21,10 +21,6 @@ public class Utils
     public static readonly CurseforgeProvider CFProvider = new();
     public static readonly ModrinthProvider MRProvider = new();
     public static readonly MinecraftParser GameParser = null!;
-
-    public static readonly MicrosoftAuthenticator MicrosoftAuthenticator = new("0f801576-94de-4c1a-8a0e-6f0434331984");
-    public static readonly OfflineAuthenticator OfflineAuthenticator = new();
-    // public static readonly YggdrasilAuthenticator YggdrasilAuthenticator = new();
 
     public static BitmapImage? GetIconFromResources(string iconName)
     {
@@ -96,5 +92,31 @@ public class Utils
         return tcs.Task;
     }
 
+    public static async Task<string> SaveSkinToLocalAsync(Stream skinStream, string fileName)
+    {
+        var folder = ApplicationData.Current.LocalFolder;
+        var file = await folder.CreateFileAsync(fileName, CreationCollisionOption.ReplaceExisting);
 
+        using var output = await file.OpenStreamForWriteAsync();
+        skinStream.Position = 0;
+        await skinStream.CopyToAsync(output);
+
+        return file.Path; // 返回保存路径
+    }
+
+    /// <summary>
+    /// 从本地获取皮肤图片
+    /// </summary>
+    /// <param name="fileName">要获取的皮肤文件名</param>
+    /// <returns>获取皮肤, 如果获取不到, 将返回史蒂夫</returns>
+    public static async Task<BitmapImage> LoadSkinFromLocalAsync(string? fileName = null)
+    {
+        var folder = ApplicationData.Current.LocalFolder;
+        var file = (StorageFile)await folder.TryGetItemAsync(fileName) ?? await folder.GetFileAsync("steve.png");
+
+        using var stream = await file.OpenReadAsync();
+        var bitmap = new BitmapImage();
+        await bitmap.SetSourceAsync(stream);
+        return bitmap;
+    }
 }

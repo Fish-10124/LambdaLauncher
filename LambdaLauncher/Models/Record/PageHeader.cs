@@ -5,8 +5,8 @@ namespace LambdaLauncher.Models.Record;
 
 public record PageHeader
 {
-    public required Type Page { get; init; }
-    public required string Text { get; init; }
-    public object? Parameter { get; init; } = null;
-    public NavigationTransitionInfo? InfoOverride { get; init; } = null;
+    public Type? Page { get; set; }
+    public string? Text { get; set; }
+    public object? Parameter { get; set; } = null;
+    public NavigationTransitionInfo? InfoOverride { get; set; } = null;
 }

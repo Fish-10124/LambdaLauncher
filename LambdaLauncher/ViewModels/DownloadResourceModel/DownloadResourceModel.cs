@@ -21,11 +21,28 @@ using System.Threading.Tasks;
 
 namespace LambdaLauncher.ViewModels.DownloadResourceModel;
 
-public abstract partial class DownloadResourceModel(Page framePage) : ObservableObject
+public abstract partial class DownloadResourceModel : ObservableObject
 {
     public const int PageSize = 50;
 
-    private readonly Page FramePage = framePage;
+    public Dictionary<SortMethodType, SortMethodDisplay> ResourceSortOrders { get; } = new()
+    {
+        {SortMethodType.Relevance,        new() { SortType = SortMethodType.Relevance,        CurseForgeSortType = SortField.Featured,         ModrinthSortType = ModrinthSearchIndex.Relevance,     DisplayText = "SortMethod-Relevance" } },
+        {SortMethodType.Downloads,        new() { SortType = SortMethodType.Downloads,        CurseForgeSortType = SortField.TotalDownloads,   ModrinthSortType = ModrinthSearchIndex.Downloads,     DisplayText = "SortMethod-TotalDownloads" } },
+        {SortMethodType.Follows,          new() { SortType = SortMethodType.Follows,          CurseForgeSortType = null,                       ModrinthSortType = ModrinthSearchIndex.Follows,       DisplayText = "SortMethod-Follows" } },
+        {SortMethodType.ReleasedDate,     new() { SortType = SortMethodType.ReleasedDate,     CurseForgeSortType = SortField.ReleasedDate,     ModrinthSortType = ModrinthSearchIndex.DatePublished, DisplayText = "SortMethod-ReleasedDate" } },
+        {SortMethodType.LatestUpdated,    new() { SortType = SortMethodType.LatestUpdated,    CurseForgeSortType = SortField.LastUpdated,      ModrinthSortType = ModrinthSearchIndex.DateUpdated,   DisplayText = "SortMethod-LatestUpdate" } },
+        {SortMethodType.Featured,         new() { SortType = SortMethodType.Featured,         CurseForgeSortType = SortField.Featured,         ModrinthSortType = null,                              DisplayText = "SortMethod-Featured" } },
+        {SortMethodType.Popularity,       new() { SortType = SortMethodType.Popularity,       CurseForgeSortType = SortField.Popularity,       ModrinthSortType = null,                              DisplayText = "SortMethod-Popularity" } },
+        {SortMethodType.Name,             new() { SortType = SortMethodType.Name,             CurseForgeSortType = SortField.Name,             ModrinthSortType = null,                              DisplayText = "SortMethod-Name" } },
+        {SortMethodType.Author,           new() { SortType = SortMethodType.Author,           CurseForgeSortType = SortField.Author,           ModrinthSortType = null,                              DisplayText = "SortMethod-Author" } },
+        {SortMethodType.TotalDownloads,   new() { SortType = SortMethodType.TotalDownloads,   CurseForgeSortType = SortField.TotalDownloads,   ModrinthSortType = null,                              DisplayText = "SortMethod-TotalDownloads" } },
+        {SortMethodType.Category,         new() { SortType = SortMethodType.Category,         CurseForgeSortType = SortField.Category,         ModrinthSortType = null,                              DisplayText = "SortMethod-Category" } },
+        {SortMethodType.GameVersion,      new() { SortType = SortMethodType.GameVersion,      CurseForgeSortType = SortField.GameVersion,      ModrinthSortType = null,                              DisplayText = "SortMethod-GameVersion" } },
+        {SortMethodType.EarlyAccess,      new() { SortType = SortMethodType.EarlyAccess,      CurseForgeSortType = SortField.EarlyAccess,      ModrinthSortType = null,                              DisplayText = "SortMethod-EarlyAccess" } },
+        {SortMethodType.FeaturedReleased, new() { SortType = SortMethodType.FeaturedReleased, CurseForgeSortType = SortField.FeaturedReleased, ModrinthSortType = null,                              DisplayText = "SortMethod-FeaturedReleased" } },
+        {SortMethodType.Rating,           new() { SortType = SortMethodType.Rating,           CurseForgeSortType = SortField.Rating,           ModrinthSortType = null,                              DisplayText = "SortMethod-Rating" } }
+    };
 
     private int TotalCurseForgePage = 0;
     private int TotalModrinthPage = 0;
@@ -43,7 +60,7 @@ public abstract partial class DownloadResourceModel(Page framePage) : Observable
             DisplayText = "Category-All"
         },
         SortMethod = SortMethodType.Relevance,
-        ModLoader = Global.ModLoaderSelectDisplays[ModLoaderType.Any],
+        ModLoader = App.ModLoaderSelectDisplays[ModLoaderType.Any],
         PageIndex = 0
     };
 
@@ -55,16 +72,6 @@ public abstract partial class DownloadResourceModel(Page framePage) : Observable
 
     [ObservableProperty]
     public partial bool IsSearching { get; protected set; } = false;
-
-    /// <summary>
-    /// 从Global读取
-    /// </summary>
-    protected abstract ResourceSearchArgs? ReadSearchArgs();
-
-    /// <summary>
-    /// 存储到Global
-    /// </summary>
-    protected abstract void SaveSearchArgs();
 
     public async Task SearchAsync()
     {
@@ -114,15 +121,6 @@ public abstract partial class DownloadResourceModel(Page framePage) : Observable
         ResourceList.GroupDuplicatesTogether(item => item.Name);
 
         IsSearching = false;
-        SaveSearchArgs();
-    }
-
-    public async Task SearchLastAsync()
-    {
-        if (ReadSearchArgs() is ResourceSearchArgs args)
-            SearchArgs = args;
-
-        await SearchAsync();
     }
 
     protected abstract Task<CurseForgeSearchResult> SearchCFResourceAsync(int index);
@@ -135,9 +133,12 @@ public abstract partial class DownloadResourceModel(Page framePage) : Observable
         if (searchArgs is null)
             return;
 
-        SearchArgs = new(searchArgs);
-        if (ReadSearchArgs() != SearchArgs)
+        var args = new ResourceSearchArgs(searchArgs);
+        if (args != SearchArgs)
+        {
+            SearchArgs = args;
             await SearchAsync();
+        }
     }
 
     [RelayCommand]
@@ -161,6 +162,6 @@ public abstract partial class DownloadResourceModel(Page framePage) : Observable
         // 资源信息移动动画
         var anim = ConnectedAnimationService.GetForCurrentView().PrepareToAnimate("ForwardConnectedAnimation", card.Header as UIElement);
         anim.Configuration = new DirectConnectedAnimationConfiguration();
-        FramePage.Frame.Navigate(typeof(DownloadResourceDetails), card.Tag, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+        App.NavigationService.Navigate(typeof(DownloadResourceDetails), card.Tag, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
     }
 }

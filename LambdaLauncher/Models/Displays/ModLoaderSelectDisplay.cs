@@ -5,12 +5,13 @@ namespace LambdaLauncher.Models.Displays;
 
 public record ModLoaderSelectDisplay : IDataDisplay
 {
-    public ModLoaderType LoaderType { get; init; }
-    public string DisplayText { get; init; }
+    private string _displayText = null!;
 
-    public ModLoaderSelectDisplay(ModLoaderType loaderType, string displayText)
+    public ModLoaderType LoaderType { get; init; }
+
+    public string DisplayText
     {
-        LoaderType = loaderType;
-        DisplayText = displayText;
+        get => Utils.ResourceLoader.GetString(_displayText);
+        init => _displayText = value;
     }
 }

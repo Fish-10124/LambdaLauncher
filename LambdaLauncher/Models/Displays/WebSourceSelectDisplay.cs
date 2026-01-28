@@ -5,12 +5,13 @@ namespace LambdaLauncher.Models.Displays;
 
 public record WebSourceSelectDisplay : IDataDisplay
 {
-    public WebResourceSource WebSource { get; init; }
-    public string DisplayText { get; init; }
+    private string _displayText = null!;
 
-    public WebSourceSelectDisplay(WebResourceSource webSource, string displayText)
+    public WebResourceSource WebSource { get; init; }
+
+    public required string DisplayText
     {
-        WebSource = webSource;
-        DisplayText = displayText;
+        get => Utils.ResourceLoader.GetString(_displayText);
+        init => _displayText = value;
     }
 }

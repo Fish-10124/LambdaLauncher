@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MinecraftLaunch.Base.Models.Authentication;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,8 +10,8 @@ namespace LambdaLauncher.Models.Record;
 
 public record LocalConfig
 {
-    public required Language Language { get; set; }
-
-    public required IEnumerable<string> GameRoots { get; set; }
-    public required string CurrentGameRoot { get; set; }
+    public Language? Language { get; set; }
+    public IEnumerable<string> GameRoots { get; set; } = [];
+    public string? CurrentGameRoot { get; set; }
+    public IEnumerable<Account> Accounts { get; set; } = [];
 }

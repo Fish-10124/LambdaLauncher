@@ -18,6 +18,6 @@ public sealed partial class Home : Page
 
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
-        App.BreadcrumbService.SetHeader();
+        App.NavigationService.SetHeader();
     }
 }

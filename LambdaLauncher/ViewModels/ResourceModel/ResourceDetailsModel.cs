@@ -33,7 +33,7 @@ public abstract partial class ResourceDetailsModel : ResourceModel
 
     async partial void OnSelectedFilterTagChanged(string value)
     {
-        if (FilesDisplay == null)
+        if (FilesDisplay is null)
             return;
 
         IsFiltering = true;
@@ -80,7 +80,7 @@ public abstract partial class ResourceDetailsModel : ResourceModel
 
         // 对文件信息进行分组
         var grouped = files.Select(ConvertFileToCardDisplay).GroupBy(g => (IEnumerable<string>)g.Parameter!);
-        var ordered = grouped.OrderByList(Global.InstanceVersions.Select(v => v.Id), g => ((string)g.Key).Split(' ')[1], MissingItemsPlacement.AtStart);
+        var ordered = grouped.OrderByList(App.InstanceVersions.Select(v => v.Id), g => ((string)g.Key).Split(' ')[1], MissingItemsPlacement.AtStart);
         List<GroupInfoList<SettingsCardDisplay>> groupedFiles = [];
         foreach (var item in ordered)
         {

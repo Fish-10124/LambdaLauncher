@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LambdaLauncher.ViewModels.DownloadResourceModel;
 
-public partial class DownloadResourcePackModel(Page framePage) : DownloadResourceModel(framePage)
+public partial class DownloadResourcePackModel : DownloadResourceModel
 {
     public static readonly AllCategoryDisplay[] CategoryDisplays = 
     [
@@ -86,16 +86,6 @@ public partial class DownloadResourcePackModel(Page framePage) : DownloadResourc
         new() { Id = "vanilla-like", DisplayText = "Category-VanillaLike" }
     ];
 
-    protected override ResourceSearchArgs? ReadSearchArgs()
-    {
-        return Global.LastSearchArgs[ResourceType.Resourcepack];
-    }
-
-    protected override void SaveSearchArgs()
-    {
-        Global.LastSearchArgs[ResourceType.Resourcepack] = SearchArgs;
-    }
-
     protected override async Task<CurseForgeSearchResult> SearchCFResourceAsync(int index)
     {
         var curseforgeOptions = new CurseforgeSearchOptions()
@@ -109,7 +99,7 @@ public partial class DownloadResourcePackModel(Page framePage) : DownloadResourc
                 CurseForgeCategoryDisplay cf => cf.Id,
                 _ => throw new NotImplementedException()
             },
-            SortField = Global.ResourceSortMethods[SearchArgs.SortMethod].CurseForgeSortType!.Value,
+            SortField = ResourceSortOrders[SearchArgs.SortMethod].CurseForgeSortType!.Value,
             ModLoaderType = SearchArgs.ModLoader.LoaderType,
             SortOrder = SortOrder.Desc,
             PageSize = PageSize,
@@ -132,7 +122,7 @@ public partial class DownloadResourcePackModel(Page framePage) : DownloadResourc
                 ModrinthCategoryDisplay mr => mr.Id,
                 _ => throw new NotImplementedException()
             },
-            Index = Global.ResourceSortMethods[SearchArgs.SortMethod].ModrinthSortType!.Value,
+            Index = ResourceSortOrders[SearchArgs.SortMethod].ModrinthSortType!.Value,
             ModLoader = SearchArgs.ModLoader.LoaderType,
             Limit = PageSize,
             Offset = index

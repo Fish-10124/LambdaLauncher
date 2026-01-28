@@ -20,7 +20,7 @@ public record ResourceSearchArgs
 
     public CategoryDisplay Category { get; set; } = DownloadModModel.CategoryDisplays[0];
     public SortMethodType SortMethod { get; set; } = SortMethodType.Relevance;
-    public ModLoaderSelectDisplay ModLoader { get; set; } = Global.ModLoaderSelectDisplays[ModLoaderType.Any];
+    public ModLoaderSelectDisplay ModLoader { get; set; } = App.ModLoaderSelectDisplays[ModLoaderType.Any];
     public int PageIndex { get; set; } = 0;
 
     public ResourceSearchArgs()

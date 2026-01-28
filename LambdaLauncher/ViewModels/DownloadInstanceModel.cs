@@ -41,6 +41,9 @@ public partial class DownloadInstanceModel(Page framePage) : ObservableObject
 
     async partial void OnSelectedFilterTagChanged(string value)
     {
+        if (VersionDisplay is null)
+            return;
+
         IsFiltering = true;
 
         await Utils.WaitForNextFrameAsync(); // 确保过滤器加载动画可以显示出来
@@ -70,18 +73,18 @@ public partial class DownloadInstanceModel(Page framePage) : ObservableObject
 
         try
         {
-            Global.InstanceVersions = await VanillaInstaller.EnumerableMinecraftAsync() ?? throw new NullReferenceException();
+            App.InstanceVersions = await VanillaInstaller.EnumerableMinecraftAsync() ?? throw new NullReferenceException();
         }
         catch (Exception)
         {
-            Global.InstanceVersions = [];
+            App.InstanceVersions = [];
             throw new Exception("Faild to get instance versions");
         }
 
         // 获取最新版本
         VersionManifestEntry latestRelease = null!;
         VersionManifestEntry latestSnapshot = null!;
-        foreach (var v in Global.InstanceVersions)
+        foreach (var v in App.InstanceVersions)
         {
             if (v.Type == "release" && latestRelease is null)
                 latestRelease = v;
@@ -93,7 +96,7 @@ public partial class DownloadInstanceModel(Page framePage) : ObservableObject
         LatestVersionDisplay = [GetVersionDisplay(latestRelease!), GetVersionDisplay(latestSnapshot!)];
 
         // 其余版本
-        VersionDisplay = new(Global.InstanceVersions.Select(GetVersionDisplay).ToList(), true);
+        VersionDisplay = new(App.InstanceVersions.Select(GetVersionDisplay).ToList(), true);
         IsInitializing = false;
         IsFiltering = false;
     }
@@ -131,7 +134,13 @@ public partial class DownloadInstanceModel(Page framePage) : ObservableObject
         }
 
         string description = $"{idText} {entry.ReleaseTime:d} {entry.ReleaseTime:t}";
-        return new(entry.Id, description, icon, entry);
+        return new()
+        {
+            Header = entry.Id,
+            Description = description,
+            Icon = icon,
+            Parameter = entry
+        };
     }
 
     [RelayCommand]

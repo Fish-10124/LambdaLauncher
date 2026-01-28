@@ -1,23 +1,19 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using LambdaLauncher.Views;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 using MinecraftLaunch;
-using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Components.Installer;
-using LambdaLauncher.Models;
-using LambdaLauncher.Views;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace LambdaLauncher.ViewModels;
 
-public partial class MainViewModel : ObservableObject
+public partial class MainNavigationModel : ObservableObject
 {
-    public MainViewModel()
+    public MainNavigationModel()
     {
         InitializeHelper.Initialize(settings =>
         {
@@ -39,20 +35,21 @@ public partial class MainViewModel : ObservableObject
             return;
         }
 
-        (Type? page, ResourceType? type) = args.SelectedItemContainer.Name switch
+        Type? page = args.SelectedItemContainer.Name switch
         {
-            "navItemHome" => (typeof(Home), (ResourceType?)null),
-            "navItemDownloadInstance" => (typeof(DownloadInstance), ResourceType.Instance),
-            "navItemDownloadMod" => (typeof(DownloadResource), ResourceType.Mod),
-            "navItemDownloadModPack" => (typeof(DownloadResource), ResourceType.Modpack),
-            "navItemDownloadResourcePack" => (typeof(DownloadResource), ResourceType.Resourcepack),
-            "navItemDownloadShader" => (typeof(DownloadResource), ResourceType.Shaderpack),
-            _ => (null, null)
+            "navItemHome" => typeof(Home),
+            "navItemDownloadInstance" => typeof(DownloadInstance),
+            "navItemDownloadMod" => typeof(DownloadMod),
+            "navItemDownloadModPack" => typeof(DownloadModpack),
+            "navItemDownloadResourcePack" => typeof(DownloadResourcePack),
+            "navItemDownloadShader" => typeof(DownloadShader),
+            "navItemAccount" => typeof(AccountManagement),
+            _ => null
         };
 
         if (page is not null)
         {
-            App.NavigationService.Navigate(page, type, new DrillInNavigationTransitionInfo());
+            App.NavigationService.Navigate(page, null, new DrillInNavigationTransitionInfo());
         }
     }
 
@@ -61,7 +58,7 @@ public partial class MainViewModel : ObservableObject
         // 获取版本列表
         try
         {
-            Global.InstanceVersions = await VanillaInstaller.EnumerableMinecraftAsync() ?? throw new NullReferenceException();
+            App.InstanceVersions = await VanillaInstaller.EnumerableMinecraftAsync() ?? throw new NullReferenceException();
         }
         catch (Exception ex)
         {

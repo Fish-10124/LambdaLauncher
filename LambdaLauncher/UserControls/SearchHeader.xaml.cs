@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
-using Windows.System;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -21,18 +20,25 @@ namespace LambdaLauncher.UserControls;
 
 public sealed partial class SearchHeader : UserControl
 {
-    private IEnumerable<WebSourceSelectDisplay> ResourceSources { get; } = Global.WebResourceSourceDisplays.Values;
+    private IEnumerable<WebSourceSelectDisplay> ResourceSources { get; } =
+    [
+        new() { WebSource = WebResourceSource.All,        DisplayText = "AllWebResourceSources" },
+        new() { WebSource = WebResourceSource.CurseForge, DisplayText = "WebSource-CurseForge" },
+        new() { WebSource = WebResourceSource.Modrinth,   DisplayText = "WebSource-Modrinth" }
+    ];
 
-    private IEnumerable<ModLoaderSelectDisplay> ModLoaders { get; } = Global.ModLoaderSelectDisplays.Values;
+    private IEnumerable<ModLoaderSelectDisplay> ModLoaders { get; } = App.ModLoaderSelectDisplays.Values;
 
     private IEnumerable<string> GameVersions { get; } = [
         Utils.ResourceLoader.GetString("AllGameVersion"),
-        ..Global.InstanceVersions.Where(v => v.Type == "release").Select(v => v.Id)];
+        ..App.InstanceVersions.Where(v => v.Type == "release").Select(v => v.Id)];
 
-    private string AllGameVersionString => GameVersions.First();
-
-    private readonly IEnumerable<SortMethodDisplay> SortMethods = Global.ResourceSortMethods.Values;
-
+    public static readonly DependencyProperty SortOrdersProperty = 
+        DependencyProperty.Register(
+            nameof(SortOrders),
+            typeof(string),
+            typeof(SearchHeader),
+            new PropertyMetadata(string.Empty));
     public static readonly DependencyProperty ResourceTypeProperty = 
         DependencyProperty.Register(
             nameof(ResourceType),
@@ -70,13 +76,23 @@ public sealed partial class SearchHeader : UserControl
 
     public event EventHandler<ResourceSearchEventArgs>? Submit;
 
+    public IEnumerable<SortMethodDisplay> SortOrders
+    {
+        get => (IEnumerable<SortMethodDisplay>)GetValue(SortOrdersProperty);
+        set => SetValue(SortOrdersProperty, value);
+    }
+
     public ResourceType ResourceType
     {
         get => (ResourceType)GetValue(ResourceTypeProperty);
         set
         {
             SetValue(ResourceTypeProperty, value);
+
+            bool isModOrModpack = value is ResourceType.Mod or ResourceType.Modpack;
             category.SelectedIndex = 0;
+            Grid.SetColumnSpan(gameVersion, isModOrModpack ? 1 : 2);
+            modLoaderType.Visibility = isModOrModpack ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 
@@ -135,7 +151,7 @@ public sealed partial class SearchHeader : UserControl
         Submit?.Invoke(this, searchArgs);
 
         var parameter = CommandParameter ?? searchArgs;
-        if (Command?.CanExecute(parameter) == true)
+        if (Command?.CanExecute(parameter) is true)
             Command.Execute(parameter);
     }
 
@@ -156,9 +172,9 @@ public sealed partial class SearchHeader : UserControl
     {
         sortMethod.ItemsSource = selectedItem switch
         {
-            WebResourceSource.All => SortMethods.Where(x => x.CurseForgeSortType is not null && x.ModrinthSortType is not null),
-            WebResourceSource.CurseForge => SortMethods.Where(x => x.CurseForgeSortType is not null),
-            WebResourceSource.Modrinth => SortMethods.Where(x => x.ModrinthSortType is not null),
+            WebResourceSource.All => SortOrders.Where(x => x.CurseForgeSortType is not null && x.ModrinthSortType is not null),
+            WebResourceSource.CurseForge => SortOrders.Where(x => x.CurseForgeSortType is not null),
+            WebResourceSource.Modrinth => SortOrders.Where(x => x.ModrinthSortType is not null),
             _ => throw new NotImplementedException()
         };
 
@@ -197,7 +213,7 @@ public sealed partial class SearchHeader : UserControl
         WebSourceChange(webSourceItem!.WebSource);
         resourceSource.SelectedItem = webSourceItem;
         modLoaderType.SelectedItem = ModLoaders.FirstOrDefault(x => x.LoaderType == SearchArgs?.ModLoader.LoaderType);
-        sortMethod.SelectedItem = SortMethods.FirstOrDefault(x => x.SortType == SearchArgs?.SortMethod);
+        sortMethod.SelectedItem = SortOrders.FirstOrDefault(x => x.SortType == SearchArgs?.SortMethod);
         category.SelectedItem = SearchArgs?.Category;
         gameVersion.SelectedItem = SearchArgs?.GameVersion is null ? GameVersions.First() : SearchArgs?.GameVersion;
 

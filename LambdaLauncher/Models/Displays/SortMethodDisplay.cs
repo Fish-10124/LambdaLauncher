@@ -7,22 +7,23 @@ namespace LambdaLauncher.Models.Displays;
 
 public record SortMethodDisplay : IDataDisplay
 {
+    private string _displayText = null!;
+
     /// <summary>
     /// 为null表示CurseForge没有这个排序类型, 即Modrinth专属
     /// </summary>
     public SortField? CurseForgeSortType { get; init; }
+
     /// <summary>
     /// 为null表示Modrinth没有这个排序类型, 即CurseForge专属
     /// </summary>
     public ModrinthSearchIndex? ModrinthSortType { get; init; }
-    public SortMethodType SortType { get; init; }
-    public string DisplayText { get; init; }
 
-    public SortMethodDisplay(SortMethodType sortType, SortField? curseForgeSortType, ModrinthSearchIndex? modrinthSortType, string displayText)
+    public SortMethodType SortType { get; init; }
+
+    public required string DisplayText 
     {
-        SortType = sortType;
-        CurseForgeSortType = curseForgeSortType;
-        ModrinthSortType = modrinthSortType;
-        DisplayText = displayText;
+        get => Utils.ResourceLoader.GetString(_displayText);
+        init => _displayText = value;
     }
 }

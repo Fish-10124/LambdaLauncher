@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="LambdaLauncher.Views.DownloadResourcePack"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:animation="using:CommunityToolkit.WinUI.Animations"
+      xmlns:behaviors="using:LambdaLauncher.Models.Behaviors"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:interfaces="using:MinecraftLaunch.Base.Interfaces"
+      xmlns:labs="using:CommunityToolkit.WinUI.Controls"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:usercontrols="using:LambdaLauncher.UserControls"
+      NavigationCacheMode="Enabled"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="ResourceEntriesView" x:DataType="interfaces:IResource">
+            <Grid>
+                <usercontrols:ResourceCard x:Name="resourceDisplayCard" ResourceDisplay="{x:Bind}" Tag="{x:Bind}">
+                    <interactivity:Interaction.Behaviors>
+                        <!--  Bind command from the page's ViewModel property so the template works in both ListView and ItemsRepeater  -->
+                        <behaviors:AncestorBindingBehavior AncestorType="DownloadResourcePack" Binding="{Binding ViewModel.NavigateToDetailsCommand, Mode=OneWay}" TargetPropertyName="Command" />
+                    </interactivity:Interaction.Behaviors>
+                </usercontrols:ResourceCard>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <ScrollViewer>
+            <StackPanel Margin="{StaticResource PageMargin}" Padding="{StaticResource ScrollAreaPadding}">
+                <usercontrols:SearchHeader x:Name="searchHeader" Command="{x:Bind ViewModel.ExecuteSearchCommand}" IsLoaderTypeVisible="True"
+                                           ResourceType="Resourcepack" SearchArgs="{x:Bind ViewModel.SearchArgs}" SortOrders="{x:Bind ViewModel.ResourceSortOrders.Values}" />
+
+                <Grid>
+                    <ItemsRepeater ItemTemplate="{StaticResource ResourceEntriesView}" ItemsSource="{x:Bind ViewModel.ResourceList, Mode=OneWay}" Visibility="{x:Bind ViewModel.IsSearching, Mode=OneWay, Converter={StaticResource BoolToVisibilityInvertConverter}}">
+                        <animation:Implicit.ShowAnimations>
+                            <animation:TranslationAnimation From="0,30,0" To="0" Duration="0:0:0.3" />
+                            <animation:OpacityAnimation Delay="0:0:0.1" To="1.0" Duration="0:0:0.3" />
+                        </animation:Implicit.ShowAnimations>
+
+                        <animation:Implicit.HideAnimations>
+                            <animation:TranslationAnimation From="0" To="0,30,0" Duration="0:0:0.3" />
+                            <animation:OpacityAnimation To="0.0" Duration="0:0:0.3" />
+                        </animation:Implicit.HideAnimations>
+                    </ItemsRepeater>
+
+                    <StackPanel x:Name="loadingStackPanel" Spacing="5" Visibility="{x:Bind ViewModel.IsSearching, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
+                        <animation:Implicit.ShowAnimations>
+                            <animation:TranslationAnimation From="0,30,0" To="0" Duration="0:0:0.3" />
+                            <animation:OpacityAnimation Delay="0:0:0.1" To="1.0" Duration="0:0:0.3" />
+                        </animation:Implicit.ShowAnimations>
+
+                        <animation:Implicit.HideAnimations>
+                            <animation:TranslationAnimation From="0" To="0,30,0" Duration="0:0:0.3" />
+                            <animation:OpacityAnimation To="0.0" Duration="0:0:0.3" />
+                        </animation:Implicit.HideAnimations>
+
+                        <labs:Shimmer Height="79" />
+                        <labs:Shimmer Height="79" />
+                        <labs:Shimmer Height="79" />
+                        <labs:Shimmer Height="79" />
+                        <labs:Shimmer Height="79" />
+                    </StackPanel>
+                </Grid>
+
+                <usercontrols:PageChanger x:Name="pageChanger" Margin="0,10,0,0" Command="{x:Bind ViewModel.ContinueSearchCommand}"
+                                          CurrentPage="{x:Bind ViewModel.SearchArgs.PageIndex, Mode=TwoWay}" TotalPage="{x:Bind ViewModel.TotalPage, Mode=OneWay}"
+                                          Visibility="{x:Bind ViewModel.IsSearching, Mode=OneWay, Converter={StaticResource BoolToVisibilityInvertConverter}}" />
+            </StackPanel>
+        </ScrollViewer>
+
+        <ProgressBar x:Name="progressBar" VerticalAlignment="Bottom" IsIndeterminate="True" Visibility="{x:Bind ViewModel.IsSearching, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}" />
+    </Grid>
+</Page>

@@ -5,7 +5,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="using:LambdaLauncher.Views"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ui="using:CommunityToolkit.WinUI"
         mc:Ignorable="d">
 
     <Window.SystemBackdrop>
@@ -13,32 +12,6 @@
     </Window.SystemBackdrop>
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="50" />
-        </Grid.RowDefinitions>
-
-        <NavigationView x:Name="navView" Grid.Row="0" IsBackButtonVisible="Collapsed"
-                        IsSettingsVisible="False" PaneDisplayMode="Top" SelectionChanged="navView_SelectionChanged">
-            <NavigationView.MenuItems>
-                <NavigationViewItem x:Name="setupWelcome" x:Uid="setupWelcome" Icon="{ui:FontIcon Glyph=&#xF2B7;}" />
-                <NavigationViewItem x:Name="setupGameRoot" x:Uid="setupGameRoot" Icon="{ui:FontIcon Glyph=&#xE838;}" IsEnabled="False" />
-                <NavigationViewItem x:Name="setupJava" x:Uid="setupJava" Icon="{ui:FontIcon Glyph=&#xEC32;}" IsEnabled="False" />
-                <NavigationViewItem x:Name="setupAccount" x:Uid="setupAccount" Icon="{ui:FontIcon Glyph=&#xE77B;}" IsEnabled="False" />
-                <NavigationViewItem x:Name="setupFinish" x:Uid="setupFinish" Icon="{ui:FontIcon Glyph=&#xE930;}" IsEnabled="False" />
-            </NavigationView.MenuItems>
-
-            <Frame x:Name="contentFrame" Padding="64,0" />
-        </NavigationView>
-
-        <Grid Grid.Row="1" Padding="16,0">
-            <Button x:Name="previousButton" x:Uid="previousButton" MinWidth="100"
-                    HorizontalAlignment="Left" Command="{x:Bind ViewModel.PreviousCommand}" CommandParameter="{x:Bind navView.SelectedItem, Mode=OneWay}"
-                    IsEnabled="{x:Bind ViewModel.CanPrevious, Mode=OneWay}" />
-            <Button x:Name="nextButton" MinWidth="100" HorizontalAlignment="Right"
-                    Click="nextButton_Click" Command="{x:Bind ViewModel.NextCommand}" CommandParameter="{x:Bind navView.SelectedItem, Mode=OneWay}"
-                    Style="{ThemeResource AccentButtonStyle}" />
-        </Grid>
-
+        <Frame x:Name="contentFrame" />
     </Grid>
 </Window>

@@ -15,8 +15,6 @@ namespace LambdaLauncher.Views;
 /// </summary>
 public sealed partial class MainWindow : Window
 {
-    public MainViewModel ViewModel { get; private set; } = new();
-
     public MainWindow()
     {
         InitializeComponent();
@@ -29,26 +27,6 @@ public sealed partial class MainWindow : Window
         manager.MinWidth = 520;
         manager.MinHeight = 360;
 
-        App.BreadcrumbService.BreadcrumbChanged += BreadcrumbService_BreadcrumbChanged;
-        App.NavigationService.Initialize(navView, contentFrame);
-
-        navView.SelectedItem = navItemHome;
-        App.NavigationService.Navigate(typeof(Home));
-    }
-
-    private void breadcrumbsHeader_ItemClicked(BreadcrumbBar sender, BreadcrumbBarItemClickedEventArgs args)
-    {
-        var item = (PageHeader)args.Item;
-        App.NavigationService.Navigate(item.Page, item.Parameter, item.InfoOverride);
-    }
-
-    private void BreadcrumbService_BreadcrumbChanged(IReadOnlyList<PageHeader> items)
-    {
-        breadcrumbsHeader.Header = items;
-    }
-
-    private void navView_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
-    {
-        ViewModel.Navigate(args);
+        contentFrame.Navigate(typeof(MainNavigation));
     }
 }

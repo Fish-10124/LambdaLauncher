@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Page x:Class="LambdaLauncher.Views.MainNavigation"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="using:LambdaLauncher.Views"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="using:CommunityToolkit.WinUI"
+      xmlns:usercontrols="using:LambdaLauncher.UserControls"
+      mc:Ignorable="d">
+
+    <Page.Resources>
+
+    </Page.Resources>
+
+    <Grid>
+        <NavigationView x:Name="navView" Grid.Row="1" IsBackButtonVisible="Collapsed"
+                        PaneDisplayMode="LeftCompact" SelectedItem="{Binding ViewModel.selectedItem, Mode=TwoWay}" SelectionChanged="navView_SelectionChanged">
+            <NavigationView.Resources>
+                <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
+                <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+            </NavigationView.Resources>
+
+            <NavigationView.Header>
+                <Grid Padding="-20,-10,0,5">
+                    <usercontrols:BreadcrumbsHeader x:Name="breadcrumbsHeader" Grid.Row="0" />
+                </Grid>
+            </NavigationView.Header>
+
+            <NavigationView.MenuItems>
+
+                <NavigationViewItem x:Name="navItemHome" x:Uid="navItemHome" Icon="Home" />
+                <NavigationViewItem x:Name="navItemDownload" x:Uid="navItemDownload" Icon="Download" IsExpanded="True" SelectsOnInvoked="False">
+
+                    <NavigationViewItem.MenuItems>
+
+                        <NavigationViewItem x:Name="navItemDownloadInstance" x:Uid="navItemDownloadInstance" Icon="{ui:FontIcon Glyph=&#xF158;}" />
+                        <NavigationViewItem x:Name="navItemDownloadMod" x:Uid="navItemDownloadMod" Icon="{ui:FontIcon Glyph=&#xEA86;}" />
+                        <NavigationViewItem x:Name="navItemDownloadModPack" x:Uid="navItemDownloadModPack" Icon="{ui:FontIcon Glyph=&#xF012;}" />
+                        <NavigationViewItem x:Name="navItemDownloadResourcePack" x:Uid="navItemDownloadResourcePack" Icon="{ui:FontIcon Glyph=&#xE91B;}" />
+                        <NavigationViewItem x:Name="navItemDownloadShader" x:Uid="navItemDownloadShader" Icon="{ui:FontIcon Glyph=&#xE706;}" />
+                    </NavigationViewItem.MenuItems>
+                </NavigationViewItem>
+
+                <NavigationViewItem x:Name="navItemInstances" x:Uid="navItemInstances" Icon="Library" />
+                <NavigationViewItem x:Name="navItemMore" x:Uid="navItemMore" Icon="More" />
+            </NavigationView.MenuItems>
+
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem x:Name="navItemAccount" x:Uid="navItemAccount" />
+            </NavigationView.FooterMenuItems>
+
+            <Frame x:Name="contentFrame" />
+        </NavigationView>
+    </Grid>
+</Page>
